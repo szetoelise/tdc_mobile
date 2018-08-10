@@ -1,0 +1,42 @@
+<!--
+  Generated template for the DatacenterPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Data Center</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+    <ion-card>
+        <ion-card-header>
+            <ion-item>
+                <ion-label stacked>Select DC Category</ion-label>
+                <ion-select [(ngModel)]="cboDatcenCat" (ngModelChange)='datcenCatChange()'>
+                  <ion-option  *ngFor="let data of dacenCat" value="{{data.id_dacencategory}}">Data Center {{data.dacencategory}}</ion-option>
+                  
+                </ion-select>
+              </ion-item>
+        </ion-card-header>
+      <hr>
+      <div class="loading-div" *ngIf="isLoading">
+          <img src="../assets/imgs/loading.gif" />
+      </div>
+     
+        <ion-list *ngIf="!isLoading">
+          <button ion-item class="btn-dacen" *ngFor="let data of dacen" (click)="viewDataCenterDetail(data.id_dacen)">
+              <ion-avatar item-start>
+                  <!--<img defaultImage="assets/imgs/loading.gif" [lazyLoad]="baseURL+files/dc/+data.dacen_img" [scrollObservable]="updateSearchResult"  offset="100"  onerror="this.src='assets/imgs/no-photo.png'">-->
+                  <img src="{{baseURL}}files/dc/{{data.dacen_img}}">
+                </ion-avatar>
+            {{data.dacen_name}}
+          </button>
+        </ion-list>
+      </ion-card>
+</ion-content>

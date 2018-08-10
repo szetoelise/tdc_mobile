@@ -1,14 +1,49 @@
 <ion-header>
   <ion-navbar>
+      <img src="assets/imgs/logo.png" style="width: 10%; display: block ;float: left;">
     <ion-title>
-      Ionic Blank
+      DASHBOARD
     </ion-title>
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
-  The world is your oyster.
-  <p>
-    If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will be your guide.
-  </p>
+<ion-content>  
+  <div class="segment-1">
+      <ion-slides class="to-top" pager>
+          <ion-slide>
+              <img src="assets/imgs/4.png" alt="" >
+          </ion-slide>
+          <ion-slide>
+              <img src="assets/imgs/5.png" alt="" >
+          </ion-slide>
+      </ion-slides>
+    <div class="footer-segment-1">
+      <div class="footer-segment-1-div" tappable (click)="viewDataCenter()">
+          <img src="assets/imgs/btn-dt.png" alt="" ><br><div>Data Center</div>
+      </div>
+      <div class="footer-segment-1-div" tappable (click)="viewAvailability()">
+          <img src="assets/imgs/btn-av.png" alt="" ><div>Availability</div>
+      </div>
+      <div class="footer-segment-1-div" tappable (click)="viewHistory()">
+          <img src="assets/imgs/btn-hi.png" alt="" ><div>History</div>
+      </div>
+    </div>     
+  </div>
+
+  <div class="segment-2">
+        <div class="loading-div" *ngIf="isLoading">
+                <img src="../assets/imgs/loading.gif" />
+        </div>
+      <ion-list *ngIf="!isLoading">
+          <ion-list-header>
+            Overview Data Center
+          </ion-list-header>
+          <ion-item *ngFor="let data of dacenCat">
+              <ion-avatar item-start>
+                  <img src="assets/imgs/server.png">
+                </ion-avatar>
+            Data Center {{data.dacencategory}}
+          </ion-item>
+      </ion-list>    
+  </div>
 </ion-content>

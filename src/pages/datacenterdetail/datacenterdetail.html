@@ -1,0 +1,81 @@
+<!--
+  Generated template for the DatacenterdetailPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Detail</ion-title>
+  </ion-navbar>
+
+</ion-header>
+  
+<ion-content>
+  <div>
+
+  </div>
+    <ion-card>
+      
+        <ion-card-header>
+            <button color="danger" ion-button icon-start >
+                <ion-icon name="download"></ion-icon>
+                Download File
+              </button>
+              
+              <button color="secondary" ion-button icon-end >
+               Maps&nbsp;
+               <ion-icon name="pin"></ion-icon> 
+              </button>
+        </ion-card-header>
+            <ion-list>
+                <ion-item tappable (click)="viewCertificate()">
+                  <ion-avatar item-start>
+                    <img src="assets/imgs/certificate.png">
+                  </ion-avatar>
+                  <h2>Certification</h2>
+                  <small>See data center certificates</small>
+                  <ion-icon name="ios-arrow-down" item-end></ion-icon>
+                  
+                </ion-item>
+            </ion-list>
+        
+            <ion-list>
+                <ion-item tappable (click)="viewBuilding()">
+                  <ion-avatar item-start>
+                    <img src="../assets/imgs/building.png">
+                  </ion-avatar>
+                  <h2>Buildings</h2>
+                  <small>See buildings details</small>
+                  <ion-icon name="ios-arrow-down" item-end></ion-icon>
+                </ion-item>
+            </ion-list>
+            
+            <ion-list>
+                <ion-item tappable (click)="viewDiagramPower()">
+                  <ion-avatar item-start>
+                    <img src="../assets/imgs/chart.png">
+                  </ion-avatar>
+                  <h2>Diagram Power</h2>
+                  <small>See diagram power</small>
+                  <ion-icon name="ios-arrow-down" item-end></ion-icon>
+                </ion-item>
+            </ion-list>
+        
+            <ion-list>
+                <ion-item tappable (click)="viewConnectivity()">
+                  <ion-avatar item-start>
+                    <img src="../assets/imgs/wifi.png">
+                  </ion-avatar>
+                  <h2>Connectivity</h2>
+                  <small>See data center connectivity</small>
+                  <ion-icon name="ios-arrow-down" item-end></ion-icon>
+                </ion-item>
+            </ion-list>          
+       
+    </ion-card>
+
+   
+
+</ion-content>
