@@ -10,13 +10,12 @@
 <ion-content>  
   <div class="segment-1">
       <ion-slides class="to-top" pager>
-          <ion-slide>
-              <img src="assets/imgs/4.png" alt="" >
+ 
+          <ion-slide *ngFor="let data of dacen">
+              <img src="{{baseURL}}files/dc/{{data.dacen_img}}" alt="" >
           </ion-slide>
-          <ion-slide>
-              <img src="assets/imgs/5.png" alt="" >
-          </ion-slide>
-      </ion-slides>
+ 
+        </ion-slides>
     <div class="footer-segment-1">
       <div class="footer-segment-1-div" tappable (click)="viewDataCenter()">
           <img src="assets/imgs/btn-dt.png" alt="" ><br><div>Data Center</div>

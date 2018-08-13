@@ -29,11 +29,40 @@ export class RestDacenProvider {
     });
   } 
 
+
   detailById(id:string){
     return new Promise ((resolve, reject) => {
       let headers = new Headers();   
       headers.append('content-type', 'application/x-www-form-urlencoded');
       this.http.get(this.global.endpoint+'Api_dacen/datacenter_detail?id_dacen='+id, {headers: headers})
+      .subscribe(res => {
+        resolve(res.json());
+      }, (err) => {
+        reject(err);
+      })
+    });   
+  }
+
+
+  listAll(){
+    return new Promise ((resolve, reject) => {
+      let headers = new Headers();   
+      headers.append('content-type', 'application/x-www-form-urlencoded');
+      this.http.get(this.global.endpoint+'Api_dacen/datacenter_detail', {headers: headers})
+      .subscribe(res => {
+        resolve(res.json());
+      }, (err) => {
+        reject(err);
+      })
+    });   
+  }
+
+
+  listCertificateDacenById(id:string){
+    return new Promise ((resolve, reject) => {
+      let headers = new Headers();   
+      headers.append('content-type', 'application/x-www-form-urlencoded');
+      this.http.get(this.global.endpoint+'Api_dacen/list_certificate?id_certification='+id, {headers: headers})
       .subscribe(res => {
         resolve(res.json());
       }, (err) => {

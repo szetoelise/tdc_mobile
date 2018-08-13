@@ -1,4 +1,4 @@
-page-history {
+page-certificate {
     ion-content {
         background-color:color($colors, gray) !important;
         background-image: url('../assets/imgs/background-footer.png');
@@ -27,17 +27,19 @@ page-history {
     }
     .bar-button {
         color:white !important;
-    } 
-
-    table{
-        width:100%;
+    }        
+    ion-row {
+        white-space: nowrap;
+        height: 75px;
+        overflow-x: auto !important;
+      }
+      ion-scroll{
+        white-space: nowrap; 
+        height: 50px;
+ 
+    }     
+      .inline{
+        display: inline-block;
     }
-
-    table tr{
-
-    }
-
-    table tr td{
-        padding:2px;
-    }
+      
 }

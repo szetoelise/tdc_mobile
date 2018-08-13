@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import {AddbookingPage} from '../addbooking/addbooking';
+import {VisitProvider} from '../../providers/visit/visit';
 /**
  * Generated class for the HistoryPage page.
  *
@@ -15,12 +16,19 @@ import {AddbookingPage} from '../addbooking/addbooking';
 })
 export class HistoryPage {
   topTab: any;
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  visitAll:any;
+  constructor(public navCtrl: NavController, 
+    public navParams: NavParams,
+    public visit:VisitProvider) {
     this.topTab = 'booking';
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad HistoryPage');
+    this.visit.listAll().then(data=>{
+      this.visitAll = data['data'];
+      //console.log(data);
+    }).catch(err=>{});
   }
 
   selectedTabChanged(evt)

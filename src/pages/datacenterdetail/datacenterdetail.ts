@@ -6,6 +6,7 @@ import {GlobalProvider} from '../../providers/global/global';
 import {DiagrampowerPage} from '../diagrampower/diagrampower';
 import {ConnectivityPage} from '../connectivity/connectivity';
 import {BuildingPage} from '../building/building';
+import {CertificatePage} from '../certificate/certificate';
 /**
  * Generated class for the DatacenterdetailPage page.
  *
@@ -31,7 +32,7 @@ export class DatacenterdetailPage {
   }
 
   viewCertificate(){
-
+    this.navCtrl.push(CertificatePage,{id:this.id});
   }
 
   viewDiagramPower(){

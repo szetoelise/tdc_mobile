@@ -1,0 +1,51 @@
+<!--
+  Generated template for the CertificatePage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Certificate</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+    <ion-card>
+        <ion-card-header>
+          Data Center Certificates/Compliance
+        </ion-card-header>
+        <ion-card-content>
+            <ion-scroll scrollX="true">
+               
+                  <img  *ngFor="let certificate of getCertificate" src="{{BaseURL}}files/certification/{{ certificate.certification_img }}" class="inline" style="max-width:10rem;max-height:5rem;">
+       
+                  
+              </ion-scroll>
+        </ion-card-content>
+      </ion-card>
+
+      <ion-card>
+          <ion-card-header>
+           Expertise Certificates
+          </ion-card-header>
+          <ion-card-content>
+              <ion-row>
+                  <ion-item>
+                      <ion-label>Date</ion-label>
+                      <ion-datetime
+                          displayFormat="MMM DD, YYYY HH:mm"
+                          [min]="minDate"
+                          [(ngModel)]="startDate"
+                          >
+                      </ion-datetime>
+                    </ion-item>
+                
+                 
+                </ion-row>
+          </ion-card-content>
+        </ion-card>      
+</ion-content>

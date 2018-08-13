@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import {RestDacenCategoryProvider} from '../../providers/rest-dacen-category/rest-dacen-category';
+import {RestDacenProvider} from '../../providers/rest-dacen/rest-dacen';
+import {GlobalProvider} from '../../providers/global/global';
 //page
 import {DatacenterPage} from '../datacenter/datacenter';
 import {AvailabilityPage} from '../availability/availability';
@@ -15,10 +17,15 @@ import {HistoryPage} from '../history/history';
 
 export class HomePage {
   private dacenCat:any= {};
+  private dacen:any;
   private tempDacenCat:any={};
   private isLoading:boolean=false;
-
-  constructor(public navCtrl: NavController,private restDacenCat:RestDacenCategoryProvider) {
+  private baseURL:string;
+  constructor(public navCtrl: NavController,
+    private restDacenCat:RestDacenCategoryProvider,
+    private restDacen:RestDacenProvider,
+    private global:GlobalProvider) {
+      this.baseURL = this.global.endpoint;
     this.getDacenCat();
   }
 
@@ -26,14 +33,15 @@ export class HomePage {
     this.isLoading=true;
     this.restDacenCat.listCategory()
     .then(data => {
-      this.isLoading=false;
-      for (let val of data['data']){
-        //val.child = 1;
-        //this.tempDacenCat.data.options.push({data:val});
-        //this.tempDacenCat.child =1;
-        //console.log(val);
-      }
-      //console.log(this.tempDacenCat);
+     
+      this.restDacen.listAll().then(data1=>{
+        this.isLoading=false;
+        console.log(data1['data']);
+        this.dacen = data1['data'];
+      }).catch(err=>{
+
+      });
+      
       this.dacenCat = data['data'];
 
     }).catch(err=>{

@@ -88,32 +88,32 @@
           </ion-card>
     </div>
     <div *ngSwitchCase="'visit'">
-        <ion-card>
-
-            <ion-item>
-              <ion-avatar item-start>
-                <img src="img/marty-avatar.png">
-              </ion-avatar>
-              <h2>Data Center Serpong</h2>
-             
+        <ion-card *ngFor="let data of visitAll">
+            <ion-item>              
+              <h2><strong>{{data.dacen_name}}</strong></h2>
             </ion-item>
             <ion-card-content>
-              <table>
+              <table class="table">
                 <tr>
                   <td>Client Name</td>
                   <td>:</td>
-                  <td></td>
+                  <td>{{data.client_name}}</td>
                 </tr>
                 <tr>
-                    <td>PIC</td>
+                    <td>Visitor List</td>
                     <td>:</td>
-                    <td></td>
+                    <td>{{data.visitor_list}}</td>
                 </tr>
                 <tr>
                     <td>Time Visit</td>
                     <td>:</td>
-                    <td></td>
-                </tr>                  
+                    <td>{{data.time_visit}}</td>
+                </tr> 
+                <tr>
+                    <td>Status</td>
+                    <td>:</td>
+                    <td>{{data.visitstatus}}</td>
+                </tr>                                 
               </table>
             </ion-card-content>
     

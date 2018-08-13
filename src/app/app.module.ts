@@ -18,6 +18,7 @@ import {BuildingPage} from '../pages/building/building';
 import {AvailabilityPage} from '../pages/availability/availability';
 import {HistoryPage} from '../pages/history/history';
 import {AddbookingPage} from '../pages/addbooking/addbooking';
+import {CertificatePage} from '../pages/certificate/certificate';
 
 
 import { GlobalProvider } from '../providers/global/global';
@@ -28,6 +29,7 @@ import { RestDacenProvider } from '../providers/rest-dacen/rest-dacen';
 //component
 import { PhotoViewer } from '@ionic-native/photo-viewer';
 import { LazyLoadImageModule } from 'ng-lazyload-image';
+import { VisitProvider } from '../providers/visit/visit';
 
 @NgModule({
   declarations: [
@@ -42,7 +44,8 @@ import { LazyLoadImageModule } from 'ng-lazyload-image';
     BuildingPage,
     AvailabilityPage,
     HistoryPage,
-    AddbookingPage
+    AddbookingPage,
+    CertificatePage
   ],
   imports: [
     BrowserModule,
@@ -64,7 +67,8 @@ import { LazyLoadImageModule } from 'ng-lazyload-image';
     BuildingPage,
     AvailabilityPage,
     HistoryPage,
-    AddbookingPage
+    AddbookingPage,
+    CertificatePage
     
   ],
   providers: [
@@ -75,7 +79,8 @@ import { LazyLoadImageModule } from 'ng-lazyload-image';
     AuthServiceProvider,
     RestDacenCategoryProvider,
     RestDacenProvider,
-    PhotoViewer
+    PhotoViewer,
+    VisitProvider
   ]
 })
 export class AppModule {}
