@@ -4,6 +4,8 @@ import {RestDacenCategoryProvider} from '../../providers/rest-dacen-category/res
 //page
 import {DatacenterPage} from '../datacenter/datacenter';
 import {AvailabilityPage} from '../availability/availability';
+import {HistoryPage} from '../history/history';
+
 
 @Component({
   selector: 'page-home',
@@ -54,7 +56,7 @@ export class HomePage {
   }
 
   viewHistory(){
-
+    this.navCtrl.push(HistoryPage);
   }
 
 }

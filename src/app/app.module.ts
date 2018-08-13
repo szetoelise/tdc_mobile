@@ -16,6 +16,9 @@ import {DiagrampowerPage} from '../pages/diagrampower/diagrampower';
 import {ConnectivityPage} from '../pages/connectivity/connectivity';
 import {BuildingPage} from '../pages/building/building';
 import {AvailabilityPage} from '../pages/availability/availability';
+import {HistoryPage} from '../pages/history/history';
+import {AddbookingPage} from '../pages/addbooking/addbooking';
+
 
 import { GlobalProvider } from '../providers/global/global';
 import { AuthServiceProvider } from '../providers/auth-service/auth-service';
@@ -37,7 +40,9 @@ import { LazyLoadImageModule } from 'ng-lazyload-image';
     DiagrampowerPage,
     ConnectivityPage,
     BuildingPage,
-    AvailabilityPage
+    AvailabilityPage,
+    HistoryPage,
+    AddbookingPage
   ],
   imports: [
     BrowserModule,
@@ -57,7 +62,9 @@ import { LazyLoadImageModule } from 'ng-lazyload-image';
     DiagrampowerPage,
     ConnectivityPage,
     BuildingPage,
-    AvailabilityPage
+    AvailabilityPage,
+    HistoryPage,
+    AddbookingPage
     
   ],
   providers: [

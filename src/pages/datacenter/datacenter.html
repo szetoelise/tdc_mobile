@@ -19,8 +19,7 @@
             <ion-item>
                 <ion-label stacked>Select DC Category</ion-label>
                 <ion-select [(ngModel)]="cboDatcenCat" (ngModelChange)='datcenCatChange()'>
-                  <ion-option  *ngFor="let data of dacenCat" value="{{data.id_dacencategory}}">Data Center {{data.dacencategory}}</ion-option>
-                  
+                  <ion-option  *ngFor="let data of dacenCat" value="{{data.id_dacencategory}}">Data Center {{data.dacencategory}}</ion-option>                  
                 </ion-select>
               </ion-item>
         </ion-card-header>

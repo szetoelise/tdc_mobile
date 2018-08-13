@@ -1,0 +1,123 @@
+<!--
+  Generated template for the HistoryPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar>
+    <ion-title>History</ion-title>
+  </ion-navbar>
+  <ion-toolbar>
+    <ion-segment [(ngModel)]="topTab" color="secondary" (ionChange)="selectedTabChanged($event)">
+        <ion-segment-button value="booking">
+            Booking
+        </ion-segment-button>
+        <ion-segment-button value="visit">
+            Visit
+        </ion-segment-button>
+    </ion-segment>
+</ion-toolbar>  
+</ion-header>
+<ion-content>
+  
+  <div [ngSwitch]="topTab">
+    <div *ngSwitchCase="'booking'">
+        <button ion-button icon-start (click)="showAdd()">
+            <ion-icon name="add"></ion-icon>
+            Add
+        </button>  
+        <ion-card>
+
+            <ion-item>
+              <ion-avatar item-start>
+                <img src="img/marty-avatar.png">
+              </ion-avatar>
+              <h2>Data Center Serpong</h2>
+              <p>Uncomfirmed</p>
+            </ion-item>
+          
+          
+          
+            <ion-card-content>
+              <table>
+                <tr>
+                  <td>Booking Status</td>
+                  <td>:</td>
+                  <td></td>
+                </tr>
+                <tr>
+                    <td>Specification</td>
+                    <td>:</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>Rack Specification</td>
+                    <td>:</td>
+                    <td></td>
+                </tr>                  
+                <tr>
+                    <td>Provider</td>
+                    <td>:</td>
+                    <td></td>
+                </tr>                  
+
+              </table>
+            </ion-card-content>
+          <!--
+            <ion-row>
+              <ion-col>
+                <button ion-button icon-start clear small>
+                  <ion-icon name="thumbs-up"></ion-icon>
+                  <div>12 Likes</div>
+                </button>
+              </ion-col>
+              <ion-col>
+                <button ion-button icon-start clear small>
+                  <ion-icon name="text"></ion-icon>
+                  <div>4 Comments</div>
+                </button>
+              </ion-col>
+              <ion-col center text-center>
+                <ion-note>
+                  11h ago
+                </ion-note>
+              </ion-col>
+            </ion-row>
+          -->
+          </ion-card>
+    </div>
+    <div *ngSwitchCase="'visit'">
+        <ion-card>
+
+            <ion-item>
+              <ion-avatar item-start>
+                <img src="img/marty-avatar.png">
+              </ion-avatar>
+              <h2>Data Center Serpong</h2>
+             
+            </ion-item>
+            <ion-card-content>
+              <table>
+                <tr>
+                  <td>Client Name</td>
+                  <td>:</td>
+                  <td></td>
+                </tr>
+                <tr>
+                    <td>PIC</td>
+                    <td>:</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>Time Visit</td>
+                    <td>:</td>
+                    <td></td>
+                </tr>                  
+              </table>
+            </ion-card-content>
+    
+          </ion-card>
+    </div>
+  </div>    
+</ion-content>
