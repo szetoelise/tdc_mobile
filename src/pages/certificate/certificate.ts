@@ -26,8 +26,7 @@ export class CertificatePage {
     public dacen:RestDacenProvider,
     public global:GlobalProvider) {
       this.BaseURL = this.global.endpoint;
-      this.startDate = new Date().toISOString();
-      this.minDate = new Date().toISOString();
+      
     }
 
   ionViewDidLoad() {

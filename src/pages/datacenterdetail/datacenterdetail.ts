@@ -22,8 +22,8 @@ import {CertificatePage} from '../certificate/certificate';
 export class DatacenterdetailPage {
   private id:string;
   constructor(public navCtrl: NavController, public navParams: NavParams) {
-    //this.id = navParams.get("id");
-    this.id="1";
+    this.id = navParams.get("id");
+    //this.id="1";
   }
 
   ionViewDidLoad() {

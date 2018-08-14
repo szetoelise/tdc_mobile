@@ -19,6 +19,8 @@ import {AvailabilityPage} from '../pages/availability/availability';
 import {HistoryPage} from '../pages/history/history';
 import {AddbookingPage} from '../pages/addbooking/addbooking';
 import {CertificatePage} from '../pages/certificate/certificate';
+import {PickfloorPage} from '../pages/pickfloor/pickfloor';
+import {PickrackPage} from '../pages/pickrack/pickrack';
 
 
 import { GlobalProvider } from '../providers/global/global';
@@ -45,7 +47,9 @@ import { VisitProvider } from '../providers/visit/visit';
     AvailabilityPage,
     HistoryPage,
     AddbookingPage,
-    CertificatePage
+    CertificatePage,
+    PickfloorPage,
+    PickrackPage
   ],
   imports: [
     BrowserModule,
@@ -68,7 +72,9 @@ import { VisitProvider } from '../providers/visit/visit';
     AvailabilityPage,
     HistoryPage,
     AddbookingPage,
-    CertificatePage
+    CertificatePage,
+    PickfloorPage,
+    PickrackPage
     
   ],
   providers: [

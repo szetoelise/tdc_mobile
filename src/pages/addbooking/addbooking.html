@@ -19,12 +19,50 @@
           Fill The Form
         </ion-card-header>
         <ion-card-content>
+        </ion-card-content>
+      </ion-card>
+
+    <ion-card>
+        <ion-card-header>
+          Data Center
+        </ion-card-header>
+        <ion-card-content>
             <ion-item>
                 <ion-label stacked>Select DC Category</ion-label>
                 <ion-select [(ngModel)]="cboDatcenCat" (ngModelChange)='datcenCatChange()'>
-                  <ion-option  *ngFor="let data of dacenCat" value="{{data.id_dacencategory}}">Data Center {{data.dacencategory}}</ion-option>                  
+                  <ion-option  *ngFor="let data of dacenCat" value="{{data.id_dacencategory}}">{{data.dacencategory}}</ion-option>                  
+                </ion-select>
+              </ion-item>
+
+              <ion-item>
+                <ion-label stacked>Select Data Center</ion-label>
+                <ion-select [(ngModel)]="cboDacen" (ngModelChange)='dacenChange()'>
+                  <ion-option  *ngFor="let data of dacen" value="{{data.id_dacen}}">{{data.dacen_name}}</ion-option>                  
                 </ion-select>
               </ion-item>
         </ion-card-content>
       </ion-card>
+
+
+      <ion-card>
+          <ion-card-header>
+            Building
+          </ion-card-header>
+          <ion-card-content>
+              <ion-item>
+                  <ion-label stacked>Select Building</ion-label>
+                  <ion-select [(ngModel)]="cboBuilding" (ngModelChange)='buildingChange()'>
+                    <ion-option  *ngFor="let data of building" value="{{data.id_building}}">{{data.building_name}}</ion-option>                  
+                  </ion-select>
+                </ion-item>
+  
+                <ion-item>
+                    <button ion-button item-start color="danger" ><ion-icon name="md-close-circle"></ion-icon>&nbsp;Cancel</button>
+                    <button ion-button item-end (click)="clickNext()">
+                        Next &nbsp;<ion-icon name="md-arrow-round-forward"></ion-icon>
+                      </button>
+                </ion-item>
+          </ion-card-content>
+        </ion-card>
+
 </ion-content>

@@ -10,13 +10,14 @@ import {DatacenterdetailPage} from '../pages/datacenterdetail/datacenterdetail';
 import {AddbookingPage} from '../pages/addbooking/addbooking';
 import {HistoryPage} from '../pages/history/history';
 import {CertificatePage} from '../pages/certificate/certificate';
+import {PickfloorPage} from '../pages/pickfloor/pickfloor';
 
 @Component({
   templateUrl: 'app.html'
 })
 export class MyApp {
-  //rootPage:any =HistoryPage ;
-  rootPage:any = HomePage;
+  //rootPage:any =HomePage ;
+  rootPage:any = PickfloorPage;
   public x:Date;
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen) {
     platform.ready().then(() => {

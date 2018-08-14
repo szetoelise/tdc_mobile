@@ -70,4 +70,44 @@ export class RestDacenProvider {
       })
     });   
   }
+
+  listBuildingByDacen(id:string){
+    return new Promise ((resolve, reject) => {
+      let headers = new Headers();   
+      headers.append('content-type', 'application/x-www-form-urlencoded');
+      this.http.get(this.global.endpoint+'Api_dacen/building?id_dacen='+id, {headers: headers})
+      .subscribe(res => {
+        resolve(res.json());
+      }, (err) => {
+        reject(err);
+      })
+    });
+  }
+
+  listFloor(id_dacen:string,id_building:string){
+    return new Promise ((resolve, reject) => {
+      let headers = new Headers();   
+      headers.append('content-type', 'application/x-www-form-urlencoded');
+      this.http.get(this.global.endpoint+'Api_dacen/floorlist?id_dacen='+id_dacen+'&id_building='+ id_building, {headers: headers})
+      .subscribe(res => {
+        resolve(res.json());
+      }, (err) => {
+        reject(err);
+      })
+    });
+  }
+
+  mappingRack(id_dacen:string,id_sector:string,id_floor:string){
+    return new Promise ((resolve, reject) => {
+      let headers = new Headers();   
+      headers.append('content-type', 'application/x-www-form-urlencoded');
+      this.http.get(this.global.endpoint+'Api_dacen/mappingrack?id_dacen='+id_dacen+'&id_sector='+id_sector+'&id_floor='+id_floor, {headers: headers})
+      .subscribe(res => {
+        resolve(res.json());
+      }, (err) => {
+        reject(err);
+      })
+    });    
+  }
+
 }

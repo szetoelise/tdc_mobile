@@ -22,9 +22,12 @@ import {DatacenterdetailPage} from '../datacenterdetail/datacenterdetail';
 export class DatacenterPage {
   private dacenCat:any;
   private dacen:any;
+  private building:any;
   private loading;
   private isLoading:boolean;
   private cboDatcenCat:any;
+  private cboDacen:any;
+  
   private baseURL:string;
 
   
@@ -43,11 +46,15 @@ export class DatacenterPage {
     this.baseURL = this.global.endpoint;
     this.getDacenCat();
   }
+  //Begin CBO changes
   datcenCatChange(){
-    
     this.getDacen(this.cboDatcenCat);
     console.log(this.cboDatcenCat);
   }
+  
+
+  //End CBO changes
+
 
   getDacenCat(){
     this.showLoader();
@@ -55,24 +62,16 @@ export class DatacenterPage {
     .then(data => {
       this.loading.dismiss();
       this.dacenCat = data['data'];
-      //for (let val of this.dacenCat){
-      //  console.log(val.dacencategory);
-      //}
-      //this.dacenCat.forEach(this.generateTree)
-      //console.log(this.dacenCat);
     });
   }
 
   getDacen(id:string){
-    this.isLoading=true;
+    this.showLoader();
     this.restDacen.listDacenByCategory(id)
     .then(data => {
       this.isLoading=false;
       this.loading.dismiss();
       this.dacen = data['data'];
-      
-      //
-      //console.log(this.dacen);
     });
   }
 
