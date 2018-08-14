@@ -17,7 +17,7 @@
   <div class="rackparent">
       <span *ngFor="let data of rack">
 
-        <div [ngClass]="pickedClass[data.rack_name]" 
+        <div [ngClass]="pickedClass[data.id_rack]" 
         [style.background-image]="'url(' + BaseURL + 'assets/images/hijau.png)'"
         *ngIf="(data.id_rackstatus_origin=='1' && data.id_rackstatus_current=='1')">
           <div >
@@ -25,7 +25,7 @@
           </div>
         </div>
 
-        <div tappable class="rackchild" (click)="clickRack(data.id_rack)" 
+        <div tappable [ngClass]="pickedClass[data.id_rack]" (click)="clickRack(data.id_rack)" 
         [style.background-image]="'url(' + BaseURL + 'assets/images/abu2.png)'"
         *ngIf="(data.id_rackstatus_origin=='2' && data.id_rackstatus_current=='2')">
           <div >
@@ -33,7 +33,7 @@
           </div>
         </div>
 
-        <div tappable class="rackchild"  (click)="clickRack(data.id_rack)"
+        <div tappable [ngClass]="pickedClass[data.id_rack]"  (click)="clickRack(data.id_rack)"
         [style.background-image]="'url(' + BaseURL + 'assets/images/.png)'"
         *ngIf="(data.id_rackstatus_origin=='5' && data.id_rackstatus_current=='5')">
           <div >
@@ -41,7 +41,7 @@
           </div>
         </div>
         
-        <div tappable class="rackchild"  (click)="clickRack(data.id_rack)"
+        <div tappable [ngClass]="pickedClass[data.id_rack]"  (click)="clickRack(data.id_rack)"
         [style.background-image]="'url(' + BaseURL + 'assets/images/.png)'"
         *ngIf="(data.id_rackstatus_origin=='6' && data.id_rackstatus_current=='6')">
           <div >
@@ -49,7 +49,7 @@
           </div>
         </div>
 
-        <div tappable class="rackchild"  (click)="clickRack(data.id_rack)"
+        <div tappable [ngClass]="pickedClass[data.id_rack]"  (click)="clickRack(data.id_rack)"
         [style.background-image]="'url(' + BaseURL + 'assets/images/.png)'"
         *ngIf="(data.id_rackstatus_origin=='7' && data.id_rackstatus_current=='7')">
           <div >
@@ -57,7 +57,7 @@
           </div>
         </div>
 
-        <div tappable class="rackchild"  (click)="clickRack(data.id_rack)"
+        <div tappable [ngClass]="pickedClass[data.id_rack]" (click)="clickRack(data.id_rack)"
         [style.background-image]="'url(' + BaseURL + 'assets/images/.png)'"
         *ngIf="(data.id_rackstatus_origin=='8' && data.id_rackstatus_current=='8')">
           <div >
@@ -65,7 +65,7 @@
           </div>
         </div>       
         
-        <div tappable class="rackchild"  (click)="clickRack(data.id_rack)"
+        <div tappable [ngClass]="pickedClass[data.id_rack]"  (click)="clickRack(data.id_rack)"
         [style.background-image]="'url(' + BaseURL + 'assets/images/abu_merah.png)'"
         *ngIf="(data.id_rackstatus_origin=='2' && data.id_rackstatus_current=='4')">
           <div >
@@ -73,7 +73,7 @@
           </div>
         </div>
 
-        <div class="rackchild" 
+        <div [ngClass]="pickedClass[data.id_rack]"
         [style.background-image]="'url(' + BaseURL + 'assets/images/abu_merahstrip.png)'"
         *ngIf="(data.id_rackstatus_origin=='2' && data.id_rackstatus_current=='3')">
           <div >
@@ -84,3 +84,22 @@
       </span>
   </div>
 </ion-content>
+<ion-footer>
+    <ion-toolbar>
+        <button ion-button full outline>{{totalPay | currency:"IDR":true:"1.0"}}</button>
+    <ion-buttons left>
+        <button ion-button icon-start (click)="toBack()">
+            <ion-icon name="md-arrow-back"></ion-icon>
+            Back
+          </button>
+          </ion-buttons>
+          <ion-buttons right>
+          <button ion-button icon-end (click)="viewNext()">
+            Next
+            <ion-icon name="md-arrow-forward"></ion-icon>
+          </button>
+        </ion-buttons>
+    </ion-toolbar>
+
+    
+</ion-footer>

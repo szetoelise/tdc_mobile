@@ -11,13 +11,14 @@ import {AddbookingPage} from '../pages/addbooking/addbooking';
 import {HistoryPage} from '../pages/history/history';
 import {CertificatePage} from '../pages/certificate/certificate';
 import {PickfloorPage} from '../pages/pickfloor/pickfloor';
+import {AlacartePage} from '../pages/alacarte/alacarte';
 
 @Component({
   templateUrl: 'app.html'
 })
 export class MyApp {
-  //rootPage:any =HomePage ;
-  rootPage:any = PickfloorPage;
+  rootPage:any =HomePage ;
+  //rootPage:any = PickfloorPage;
   public x:Date;
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen) {
     platform.ready().then(() => {

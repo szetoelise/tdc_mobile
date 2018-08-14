@@ -3,7 +3,7 @@ import { IonicPage, NavController,LoadingController, NavParams,AlertController,T
 import {RestDacenCategoryProvider} from '../../providers/rest-dacen-category/rest-dacen-category';
 import {RestDacenProvider} from '../../providers/rest-dacen/rest-dacen';
 import {GlobalProvider} from '../../providers/global/global';
-
+import {AlacartePage} from '../alacarte/alacarte';
 //import {PickfloorPage} from '../../pages/pickfloor/pickfloor';
 /**
  * Generated class for the PickrackPage page.
@@ -23,11 +23,16 @@ export class PickrackPage {
   public id_sector:string;
   public id_floor:string;
   public rack:any;
-  public pickedClass:Array<string> = new Array(); 
+  public totalPay:number=0;
+  public pickedClass=[]; 
+  public pickedCondition=[];
+  public pickedPrice=[];
+  
   public BaseURL:string;
   constructor(
     public navCtrl: NavController, 
     public navParams: NavParams,
+    
     private restDacenCat:RestDacenCategoryProvider,
     private restDacen:RestDacenProvider,
     private atrCtrl:AlertController,
@@ -46,11 +51,19 @@ export class PickrackPage {
     this.restDacen.mappingRack(this.id_dacen,this.id_sector,this.id_floor).then(data=>{
       this.loading.dismiss();
       this.rack = data['data'];
-      data['data'].forEach(function(key,index) {      
-        this.pickedClass[data['data'][index].rack_name] = 'rackchild';
+      let keyarr=[];
+      let conditionarr=[];
+      let pricearr=[];
+      data['data'].forEach(function(key,index) {   
+        //console.log(data['data'][index].rack_name);   
+        keyarr[data['data'][index].id_rack] = 'rackchild';
+        conditionarr[data['data'][index].id_rack] = false;
+        pricearr[data['data'][index].id_rack] = data['data'][index].price;
       });
 
-     
+      this.pickedClass = keyarr;
+      this.pickedCondition = conditionarr;
+      this.pickedPrice = pricearr;
       //console.log(this.rack);
     }).catch(err=>{
       console.log(err);
@@ -58,7 +71,43 @@ export class PickrackPage {
   }
 
   clickRack(id:string){
-    alert(id);
+    if(this.pickedCondition[id]){
+      this.pickedClass[id] = 'rackchild';
+      this.pickedCondition[id] = false;
+      this.totalPay -= parseFloat(this.pickedPrice[id]);
+    }else{
+      this.pickedClass[id] = 'rackchild picked';
+      this.pickedCondition[id] = true;
+      this.totalPay += parseFloat(this.pickedPrice[id]);
+    }
+  }
+
+
+  toBack(){
+    this.navCtrl.pop();
+  }
+
+  viewNext(){
+    let pickedArr = [];
+    let arr = this.pickedCondition;
+    arr.forEach(function(key,index) {
+        if(arr[index]){
+          pickedArr.push(index);
+          //
+        }
+    });
+    if(!pickedArr.length){
+      this.presentToast("Anda belum memilih rack");
+      return false;
+    }else{
+      this.navCtrl.push(AlacartePage,{
+        id_dacen:this.id_dacen,
+        id_floor:this.id_floor,
+        id_sector:this.id_sector,
+        ids_rack:pickedArr,
+        totalPay:this.totalPay
+      })
+    }
   }
 
   showLoader(){

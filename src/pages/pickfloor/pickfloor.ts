@@ -33,7 +33,7 @@ export class PickfloorPage {
       console.log(data['data']);
       this.floor = data['data'];
     }).catch(err=>{
-
+        console.log(err);
     });
     
     
@@ -42,5 +42,10 @@ export class PickfloorPage {
   viewRack(id_dacen:string,id_sector:string,id_floor:string){
     this.navCtrl.push(PickrackPage,{id_dacen:id_dacen,id_sector:id_sector,id_floor:id_floor});
   }
+
+  toBack(){
+    this.navCtrl.pop();
+  }
+
 
 }

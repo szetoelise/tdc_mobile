@@ -21,17 +21,20 @@ import {AddbookingPage} from '../pages/addbooking/addbooking';
 import {CertificatePage} from '../pages/certificate/certificate';
 import {PickfloorPage} from '../pages/pickfloor/pickfloor';
 import {PickrackPage} from '../pages/pickrack/pickrack';
-
+import {AlacartePage} from '../pages/alacarte/alacarte';
 
 import { GlobalProvider } from '../providers/global/global';
 import { AuthServiceProvider } from '../providers/auth-service/auth-service';
 import { RestDacenCategoryProvider } from '../providers/rest-dacen-category/rest-dacen-category';
 import { RestDacenProvider } from '../providers/rest-dacen/rest-dacen';
 
+import {DatehumanPipe} from '../pipes/datehuman/datehuman';
+import {StringmanPipe} from '../pipes/stringman/stringman'; 
 //component
 import { PhotoViewer } from '@ionic-native/photo-viewer';
 import { LazyLoadImageModule } from 'ng-lazyload-image';
 import { VisitProvider } from '../providers/visit/visit';
+import { AlacarteProvider } from '../providers/alacarte/alacarte';
 
 @NgModule({
   declarations: [
@@ -49,7 +52,8 @@ import { VisitProvider } from '../providers/visit/visit';
     AddbookingPage,
     CertificatePage,
     PickfloorPage,
-    PickrackPage
+    PickrackPage,
+    AlacartePage
   ],
   imports: [
     BrowserModule,
@@ -74,7 +78,8 @@ import { VisitProvider } from '../providers/visit/visit';
     AddbookingPage,
     CertificatePage,
     PickfloorPage,
-    PickrackPage
+    PickrackPage,
+    AlacartePage
     
   ],
   providers: [
@@ -86,7 +91,10 @@ import { VisitProvider } from '../providers/visit/visit';
     RestDacenCategoryProvider,
     RestDacenProvider,
     PhotoViewer,
-    VisitProvider
+    VisitProvider,
+    AlacarteProvider,
+    DatehumanPipe,
+    StringmanPipe
   ]
 })
 export class AppModule {}

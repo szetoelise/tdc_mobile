@@ -15,8 +15,8 @@
     <ion-row>
           <ion-col>
               <form (submit)="doLogin()">
-                <ion-input style="background-color: transparent !important; color:white;" [(ngModel)]="loginData.email"  name="email" type="email" placeholder="Email"></ion-input>
-                <ion-input style="background-color: transparent !important; color:white;" [(ngModel)]="loginData.password"  name="password" type="password" placeholder="Password"></ion-input>
+                <ion-input style="background-color: transparent !important; color:white;" [(ngModel)]="loginData.email"  name="email" type="email" placeholder="Email" required></ion-input>
+                <ion-input style="background-color: transparent !important; color:white;" [(ngModel)]="loginData.password"  name="password" type="password" placeholder="Password" required></ion-input>
               </form>
             <!--
               <ion-list>

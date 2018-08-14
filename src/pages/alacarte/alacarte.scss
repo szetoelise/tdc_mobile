@@ -1,0 +1,39 @@
+page-alacarte {
+    ion-content {
+        background-color:color($colors, gray) !important;
+        background-image: url('../assets/imgs/background-footer.png');
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center bottom;
+        background-attachment: fixed;
+        background-clip: content-box;        
+    }
+    .toolbar-background,.toolbar-background-md{
+        background-color:color($colors, bground) !important;
+        
+    }
+    .toolbar-title,.toolbar-title-md{
+        color:white !important;
+        
+    }        
+    .div-scroll{
+        width: 100%;
+        overflow: scroll !important;
+    }
+
+    .div-scroll img{
+        max-width: 500px;
+        height: auto;
+    }
+    .bar-button {
+        color:white !important;
+    } 
+
+    ion-card-header {
+        background-color:#b7313a;
+        color:white !important;
+        font-size: 0.8em !important; 
+        white-space: wrap;
+    }
+
+}

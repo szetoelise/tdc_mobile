@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController,LoadingController, NavParams,AlertController,ToastController } from 'ionic-angular';
 import {RestDacenProvider} from '../../providers/rest-dacen/rest-dacen';
 import {GlobalProvider} from '../../providers/global/global';
 /**
@@ -19,23 +19,54 @@ export class CertificatePage {
   public id:string;
   public startDate:any;
   public minDate:any;
+  loading:any;
   public BaseURL:string;
   //public getCertificate:any;
   constructor(public navCtrl: NavController, 
     public navParams: NavParams,
     public dacen:RestDacenProvider,
-    public global:GlobalProvider) {
+    public global:GlobalProvider,
+    private atrCtrl:AlertController,
+    private loadingCtrl:LoadingController,
+    private toastCtrl:ToastController) {
       this.BaseURL = this.global.endpoint;
       
     }
 
   ionViewDidLoad() {
     this.id = this.navParams.get("id");
-    this.id = "1";
+    //this.id = "1";
+    this.showLoader();
     console.log('ionViewDidLoad CertificatePage');
     this.dacen.listCertificateDacenById(this.id).then(data=>{
       this.getCertificate = data['data'];
-    }).catch(err=>{});
+      this.loading.dismiss();
+    }).catch(err=>{
+      this.presentToast(err);
+    });
+  }
+
+  showLoader(){
+    this.loading = this.loadingCtrl.create({
+      content: 'Loading...'
+    });
+  
+    this.loading.present();
+  }
+  
+  presentToast(msg) {
+    let toast = this.toastCtrl.create({
+      message: msg,
+      duration: 3000,
+      position: 'bottom',
+      dismissOnPageChange: true
+    });
+  
+    toast.onDidDismiss(() => {
+      console.log('Dismissed toast');
+    });
+  
+    toast.present();
   }
 
 }
