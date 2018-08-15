@@ -20,14 +20,27 @@ export class VisitProvider {
   listAll(){
     return new Promise ((resolve, reject) => {
       let headers = new Headers();   
-      headers.append('content-type', 'application/x-www-form-urlencoded');
-      this.http.get(this.global.endpoint+'Api_dacen/visitlist', {headers: headers})
+      
+      this.http.get(this.global.endpoint+'Api_visit/visitlist', {headers: headers})
       .subscribe(res => {
         resolve(res.json());
       }, (err) => {
         reject(err);
       })
     });   
+  }
+
+  listAllBookingRack(){
+    return new Promise ((resolve, reject) => {
+      let headers = new Headers();   
+      headers.append('content-type', 'application/x-www-form-urlencoded');
+      this.http.get(this.global.endpoint+'Api_booking/historyrack', {headers: headers})
+      .subscribe(res => {
+        resolve(res.json());
+      }, (err) => {
+        reject(err);
+      })
+    });    
   }
 
 

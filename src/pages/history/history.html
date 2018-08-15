@@ -27,14 +27,10 @@
             <ion-icon name="add"></ion-icon>
             Add
         </button>  
-        <ion-card>
-
+        <ion-card *ngFor="let data of bookingAll">
             <ion-item>
-              <ion-avatar item-start>
-                <img src="img/marty-avatar.png">
-              </ion-avatar>
-              <h2>Data Center Serpong</h2>
-              <p>Uncomfirmed</p>
+              <h2>{{data.dacen_name}}</h2>
+              <p>{{data.status_transaksi}}</p>
             </ion-item>
           
           
@@ -42,25 +38,26 @@
             <ion-card-content>
               <table>
                 <tr>
-                  <td>Booking Status</td>
+                  <td>Requester Name</td>
                   <td>:</td>
-                  <td></td>
+                  <td>{{data.emp_name}}</td>
                 </tr>
                 <tr>
-                    <td>Specification</td>
+                    <td>Days Commit</td>
                     <td>:</td>
-                    <td></td>
+                    <td>{{data.days_commit}}</td>
                 </tr>
                 <tr>
-                    <td>Rack Specification</td>
-                    <td>:</td>
-                    <td></td>
-                </tr>                  
+                  <td>Qty</td>
+                  <td>:</td>
+                  <td>{{data.qty}}</td>
+              </tr>                
                 <tr>
-                    <td>Provider</td>
+                    <td>Validator</td>
                     <td>:</td>
-                    <td></td>
+                    <td>{{data.validator}}</td>
                 </tr>                  
+                  
 
               </table>
             </ion-card-content>

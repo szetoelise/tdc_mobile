@@ -1,0 +1,63 @@
+<!--
+  Generated template for the PickbuildingPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Add Booking</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+    <ion-card *ngFor="let data of dacen; let i = index" [style.background-image]="'url(' + BaseURL + 'files/dc/' + dacen[i].dacen_img + ')'">
+      <ion-card-header>
+        {{dacen[i].dacen_name}}
+      </ion-card-header>
+      <table>
+          <tr>
+            <td>Space</td>
+            <td>:</td>
+            <td>{{dacen[i].dacen_space}}</td>
+          </tr>
+          <tr>
+              <td>Contact</td>
+              <td>:</td>
+              <td>{{dacen[i].dacen_contact}}</td>
+          </tr>
+          <tr>
+              <td>City</td>
+              <td>:</td>
+              <td>{{dacen[i].city_name}}</td>
+          </tr>                  
+        </table>
+  </ion-card>
+
+
+  <ion-card>
+      <ion-card-header>
+        Building
+      </ion-card-header>
+      <ion-card-content>
+          <ion-item>
+              <ion-label stacked>Select Building</ion-label>
+              <ion-select [(ngModel)]="cboBuilding" (ngModelChange)='buildingChange()'>
+                <ion-option  *ngFor="let data of building" value="{{data.id_building}}">{{data.building_name}}</ion-option>                  
+              </ion-select>
+            </ion-item>
+
+            <ion-item>
+                <button ion-button item-start color="danger" (click)="toBack()" >
+                  <ion-icon name="md-close-circle"></ion-icon>&nbsp;Cancel</button>
+                <button ion-button item-end (click)="clickNext()">
+                    Next &nbsp;<ion-icon name="md-arrow-round-forward"></ion-icon>
+                  </button>
+            </ion-item>
+      </ion-card-content>
+    </ion-card>
+      
+</ion-content>

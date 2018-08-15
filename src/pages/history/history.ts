@@ -17,6 +17,7 @@ import {VisitProvider} from '../../providers/visit/visit';
 export class HistoryPage {
   topTab: any;
   visitAll:any;
+  bookingAll:any;
   constructor(public navCtrl: NavController, 
     public navParams: NavParams,
     public visit:VisitProvider) {
@@ -28,7 +29,15 @@ export class HistoryPage {
     this.visit.listAll().then(data=>{
       this.visitAll = data['data'];
       //console.log(data);
-    }).catch(err=>{});
+    }).catch(err=>{
+      console.log(err);
+    });
+
+    this.visit.listAllBookingRack().then(data=>{
+      this.bookingAll = data['data'];
+    }).catch(err=>{
+
+    });
   }
 
   selectedTabChanged(evt)

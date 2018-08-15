@@ -20,4 +20,33 @@
     (ionInput)="onInput($event)"
     (ionCancel)="onCancel($event)">
   </ion-searchbar>
+
+  <ion-card *ngFor="let data of dacen; let i = index" [style.background-image]="'url(' + BaseURL + 'files/dc/' + dacen[i].dacen_img + ')'" tappable (click)="clickDacen(dacen[i].id_dacen)">
+      <ion-card-header>
+        {{dacen[i].dacen_name}}
+      </ion-card-header>
+      <table>
+          <tr>
+            <td>Space</td>
+            <td>:</td>
+            <td>{{dacen[i].dacen_space}}</td>
+          </tr>
+          <tr>
+              <td>Contact</td>
+              <td>:</td>
+              <td>{{dacen[i].dacen_contact}}</td>
+          </tr>
+          <tr>
+              <td>City</td>
+              <td>:</td>
+              <td>{{dacen[i].city_name}}</td>
+          </tr>                  
+          <tr>
+              <td>Available Rack</td>
+              <td>:</td>
+              <td>{{dacen[i].rack}}</td>
+          </tr>                  
+
+        </table>
+  </ion-card>
 </ion-content>

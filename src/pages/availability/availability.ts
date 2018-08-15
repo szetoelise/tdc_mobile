@@ -6,6 +6,7 @@ import {GlobalProvider} from '../../providers/global/global';
 import 'rxjs/add/operator/map';
 import {Observable,Subject} from 'rxjs/Rx';
 import {DatacenterdetailPage} from '../datacenterdetail/datacenterdetail';
+import {PickbuildingPage} from '../pickbuilding/pickbuilding';
 
 /**
  * Generated class for the AvailabilityPage page.
@@ -25,7 +26,7 @@ export class AvailabilityPage {
   private loading;
   private isLoading:boolean;
   private cboDatcenCat:any;
-  private baseURL:string;
+  private BaseURL:string;
   constructor(public navCtrl: NavController, 
     public navParams: NavParams,
     private restDacenCat:RestDacenCategoryProvider,
@@ -36,6 +37,27 @@ export class AvailabilityPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad AvailabilityPage');
+    this.showLoader();
+    let dacen=[];
+    this.BaseURL = this.global.endpoint;
+    let rDacen = this.restDacen;
+    this.restDacen.availabilityRack().then(data=>{
+      data['data'].forEach(function(key,index) {
+        rDacen.detailById(data['data'][index].id_dacen).then(data1=>{
+          data1['data'][index].rack = data['data'][index].jml_rack;
+          dacen.push(data1['data'][index]);
+        }).catch(err1=>{
+          console.log(err1);
+        });
+        
+
+      });
+        this.loading.dismiss();
+        this.dacen = dacen;
+        console.log(dacen);
+    }).catch(err=>{
+      console.log(err);
+    });
   }
 
   onInput(v){
@@ -48,10 +70,13 @@ export class AvailabilityPage {
 
   showLoader(){
     this.loading = this.loadingCtrl.create({
-      content: 'Authenticating...'
+      content: 'Loading...'
     });
     this.loading.present();
   }
 
+  clickDacen(id_dacen:string){
+    this.navCtrl.push(PickbuildingPage,{id_dacen:id_dacen});
+  }
 
 }

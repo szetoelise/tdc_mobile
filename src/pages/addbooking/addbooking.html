@@ -57,7 +57,8 @@
                 </ion-item>
   
                 <ion-item>
-                    <button ion-button item-start color="danger" ><ion-icon name="md-close-circle"></ion-icon>&nbsp;Cancel</button>
+                    <button ion-button item-start color="danger" (click)="toBack()" >
+                      <ion-icon name="md-close-circle"></ion-icon>&nbsp;Cancel</button>
                     <button ion-button item-end (click)="clickNext()">
                         Next &nbsp;<ion-icon name="md-arrow-round-forward"></ion-icon>
                       </button>

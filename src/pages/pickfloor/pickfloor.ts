@@ -24,10 +24,10 @@ export class PickfloorPage {
   }
 
   ionViewDidLoad() {
-    this.id_dacen = "1";
-    this.id_building = "1";
-    //this.id_dacen = this.navParams.get("id_dacen");
-    //this.id_building = this.navParams.get("id_building");
+    //this.id_dacen = "1";
+    //this.id_building = "1";
+    this.id_dacen = this.navParams.get("id_dacen");
+    this.id_building = this.navParams.get("id_building");
 
     this.restDacen.listFloor(this.id_dacen,this.id_building).then(data=>{
       console.log(data['data']);

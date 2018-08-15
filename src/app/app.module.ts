@@ -22,11 +22,14 @@ import {CertificatePage} from '../pages/certificate/certificate';
 import {PickfloorPage} from '../pages/pickfloor/pickfloor';
 import {PickrackPage} from '../pages/pickrack/pickrack';
 import {AlacartePage} from '../pages/alacarte/alacarte';
+import {PickbuildingPage} from '../pages/pickbuilding/pickbuilding';
+import {FormcustomerPage} from '../pages/formcustomer/formcustomer';
 
 import { GlobalProvider } from '../providers/global/global';
 import { AuthServiceProvider } from '../providers/auth-service/auth-service';
 import { RestDacenCategoryProvider } from '../providers/rest-dacen-category/rest-dacen-category';
 import { RestDacenProvider } from '../providers/rest-dacen/rest-dacen';
+
 
 import {DatehumanPipe} from '../pipes/datehuman/datehuman';
 import {StringmanPipe} from '../pipes/stringman/stringman'; 
@@ -53,7 +56,9 @@ import { AlacarteProvider } from '../providers/alacarte/alacarte';
     CertificatePage,
     PickfloorPage,
     PickrackPage,
-    AlacartePage
+    AlacartePage,
+    PickbuildingPage,
+    FormcustomerPage
   ],
   imports: [
     BrowserModule,
@@ -79,7 +84,9 @@ import { AlacarteProvider } from '../providers/alacarte/alacarte';
     CertificatePage,
     PickfloorPage,
     PickrackPage,
-    AlacartePage
+    AlacartePage,
+    PickbuildingPage,
+    FormcustomerPage
     
   ],
   providers: [

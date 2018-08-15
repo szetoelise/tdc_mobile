@@ -81,7 +81,7 @@ clickNext()
     this.presentToast("Select Building first.")
     return false;
   }
-  this.navCtrl.push(PickfloorPage,{id_dacen:this.dacen,id_building:this.building});
+  this.navCtrl.push(PickfloorPage,{id_dacen:this.cboDacen,id_building:this.cboBuilding});
 }
 
 //end button action
@@ -119,6 +119,10 @@ clickNext()
     });
   
     toast.present();
+  }
+
+  toBack(){
+    this.navCtrl.pop();
   }
 
 }

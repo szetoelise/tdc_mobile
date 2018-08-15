@@ -21,7 +21,11 @@ export class AlacartePage {
   public alacarte;
   public id_alacartetype=[];
   public id_alacarte=[];
-  
+  public priceType=[];
+  public priceAl=[];
+
+  public checked=true;
+
   public id_dacen:string;
   public id_sector:string;
   public id_floor:string;
@@ -62,24 +66,41 @@ export class AlacartePage {
     this.showLoader();
     this.restAlacarte.listType().then(data=>{
       let keyarr=[];
+      let priceArr=[];
+
       data['data'].forEach(function(key,index) {   
         keyarr[data['data'][index].id_alacartetype] =null;
+          data['data'][index].alacarte.forEach(function(key1,index1){
+            priceArr[data['data'][index].alacarte[index1].id_alacarte] =data['data'][index].alacarte[index1].price;
+          });
+        //priceArr[data['data'][index].id_alacartetype] = 
       });
+      this.priceType = priceArr;
       this.id_alacartetype = keyarr;
       this.alacarteType = data['data'];
         //--------------
         this.restAlacarte.listAll().then(data1=>{
           let keyarr1=[];
+          let priceArr1=[];
           data1['data'].forEach(function(key,index) {   
-            keyarr1[data1['data'][index].id_alacarte] =null;
+            keyarr1[data1['data'][index].id_alacarte] =0;
+              data1['data'][index].alacarte.forEach(function(key1,index1){
+                priceArr1[data1['data'][index].alacarte[index1].id_alacarte] =data1['data'][index].alacarte[index1].price;
+              });
           });
-          this.id_alacarte = keyarr1;
+
+          this.priceAl = priceArr1;
+          //this.id_alacarte = keyarr1;
           this.alacarte = data1['data'];
           this.loading.dismiss();
         }).catch(err1=>{
           this.loading.dismiss();
           console.log(err1);
         });
+        console.log(this.priceType);
+        console.log(this.priceAl);
+        
+
         //--------------      
       //this.loading.dismiss();
     }).catch(err=>{
@@ -127,7 +148,8 @@ export class AlacartePage {
   priceAlacarteType(){
 
   }
+
   doSubmit(){
-    console.log(this.ids_rack);
+    console.log(this.id_alacarte);
   }
 }

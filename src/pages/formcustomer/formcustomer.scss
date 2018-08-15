@@ -1,4 +1,4 @@
-page-availability {
+page-formcustomer {
     ion-content {
         background-color:color($colors, gray) !important;
         background-image: url('../assets/imgs/background-footer.png');
@@ -8,6 +8,11 @@ page-availability {
         background-attachment: fixed;
         background-clip: content-box;        
     }
+
+    .toolbar, .toolbar-md{
+        background-color:white !important;
+    }
+
     .toolbar-background,.toolbar-background-md{
         background-color:color($colors, bground) !important;
         
@@ -27,34 +32,5 @@ page-availability {
     }
     .bar-button {
         color:white !important;
-    } 
-
-    ion-card-header {
-        background-color:#b7313a;
-        color:white !important;
-        font-size: 0.8em !important; 
-        white-space: wrap;
-    }
-
-    table{
-        width:100%;
-        background: linear-gradient(to right,color($colors, bground), transparent) !important;
-        color:white !important;
-        
-    }
-
-    table tr{
-
-    }
-
-    table tr td{
-        padding:2px;
-    }
-
-    ion-card {
-        background-size: cover !important;
-        background-repeat: no-repeat !important;
-        //background-color: transparent !important;
-       
-    }
+    }   
 }

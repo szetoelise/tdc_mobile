@@ -71,7 +71,7 @@
               </ion-item>
               <ion-item>
                   <ion-label>No</ion-label>
-                  <ion-radio value="{{data.alacarte[1].id_alacarte}}"></ion-radio>
+                  <ion-radio value="{{data.alacarte[1].id_alacarte}}" (checked)="checked"></ion-radio>
                 </ion-item>
                 <ion-item-divider>
                    
@@ -86,7 +86,6 @@
           </ion-card-header>
           <ion-list radio-group *ngFor="let data1 of data.alacarte" 
           [(ngModel)]="id_alacarte[data1.id_alacarte]" 
-          name="id_alacarte[]"
           required 
           (ngModelChange)='priceAlacarte()'>
               <ion-item text-wrap>
@@ -98,7 +97,7 @@
               </ion-item>
               <ion-item>
                   <ion-label>No</ion-label>
-                  <ion-radio value="0"></ion-radio>
+                  <ion-radio value="0" (checked)="checked"></ion-radio>
                 </ion-item>
                 <ion-item-divider>
                    
@@ -107,10 +106,7 @@
       </ion-card>
  
       
-      <ion-card>
-          <ion-card-header>
-          </ion-card-header>
-      </ion-card>
+
    
       
    
