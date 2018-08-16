@@ -18,8 +18,8 @@ import {PickbuildingPage} from '../pages/pickbuilding/pickbuilding';
   templateUrl: 'app.html'
 })
 export class MyApp {
-  //rootPage:any =HomePage ;
-  rootPage:any = AlacartePage;
+  rootPage:any =HomePage ;
+  //rootPage:any = AlacartePage;
   public x:Date;
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen) {
     platform.ready().then(() => {

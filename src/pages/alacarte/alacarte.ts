@@ -19,8 +19,13 @@ export class AlacartePage {
   public commit:boolean=false;
   public alacarteType;
   public alacarte;
+  
   public id_alacartetype=[];
-  public id_alacarte=[];
+  
+  public id_alacarte={};
+  public post_id_alacarte=[];
+  public length_id_alacarte=[];
+
   public priceType=[];
   public priceAl=[];
 
@@ -84,13 +89,16 @@ export class AlacartePage {
           let priceArr1=[];
           data1['data'].forEach(function(key,index) {   
             keyarr1[data1['data'][index].id_alacarte] =0;
+            //keyarr1.push(data1['data'][index].id_alacarte);
               data1['data'][index].alacarte.forEach(function(key1,index1){
                 priceArr1[data1['data'][index].alacarte[index1].id_alacarte] =data1['data'][index].alacarte[index1].price;
               });
           });
 
           this.priceAl = priceArr1;
-          //this.id_alacarte = keyarr1;
+          this.id_alacarte=keyarr1;
+          this.length_id_alacarte = keyarr1;
+
           this.alacarte = data1['data'];
           this.loading.dismiss();
         }).catch(err1=>{
@@ -150,6 +158,10 @@ export class AlacartePage {
   }
 
   doSubmit(){
+    let l = this.length_id_alacarte;
+    this.length_id_alacarte.forEach(function(key,index){
+        console.log(l[index]);
+    });
     console.log(this.id_alacarte);
   }
 }
