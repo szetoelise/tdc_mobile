@@ -1,7 +1,10 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController,LoadingController, NavParams,AlertController,ToastController } from 'ionic-angular';
+import { Content ,IonicPage, NavController,LoadingController, NavParams,AlertController,ToastController } from 'ionic-angular';
 import {AlacarteProvider} from '../../providers/alacarte/alacarte';
+import { ViewChild ,ElementRef } from '@angular/core'
 import {GlobalProvider} from '../../providers/global/global';
+import {FormcustomerPage} from '../formcustomer/formcustomer';
+import { first } from 'rxjs/operators';
 /**
  * Generated class for the AlacartePage page.
  *
@@ -15,14 +18,20 @@ import {GlobalProvider} from '../../providers/global/global';
   templateUrl: 'alacarte.html',
 })
 export class AlacartePage {
+  @ViewChild(Content, {read: ElementRef}) content: Content;
   public id_rackstatus_current;
+  public commitday:any;
   public commit:boolean=false;
   public alacarteType;
   public alacarte;
   
   public id_alacartetype=[];
+  public id_alacartetype_detect=[];
   
-  public id_alacarte={};
+  public pickedArr = [];
+  public id_alacarte=[];
+  public id_alacarte_detect=[];
+  
   public post_id_alacarte=[];
   public length_id_alacarte=[];
 
@@ -48,7 +57,7 @@ export class AlacartePage {
       this.id_dacen = this.navParams.get("id_dacen");
       this.id_sector = this.navParams.get("id_sector");
       this.id_floor = this.navParams.get("id_floor");
-      this.totalPay = this.navParams.get("totalPay");
+      this.totalPay = parseFloat(this.navParams.get("totalPay"));
       this.ids_rack = this.navParams.get("ids_rack");
 
   }
@@ -56,6 +65,21 @@ export class AlacartePage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad AlacartePage');
     this.listType();
+    this.id_rackstatus_current= 4;
+      // var container = document.getElementsByClassName('detailbody');
+      // for(var x = 0; x < container.length; x++) {
+      //   var imgx = container.item(x).getElementsByTagName("img");
+      //   for(var xx = 0; xx < imgx.length; xx++) {
+      //     imgx[xx].addEventListener('click', (event) => 
+      //     {
+      //       var url = event.toElement.getAttribute('src');
+      //       var title = event.toElement.getAttribute('alt');
+            
+      //     }
+      //     );
+      //   }
+      // }
+      //this.id_alacartetype_detect = this.id_alacartetype;
   }
 
   rackStatusChange(){
@@ -74,29 +98,40 @@ export class AlacartePage {
       let priceArr=[];
 
       data['data'].forEach(function(key,index) {   
-        keyarr[data['data'][index].id_alacartetype] =null;
+         let x:number=0;
           data['data'][index].alacarte.forEach(function(key1,index1){
+            if(x==1){
+              keyarr[data['data'][index].id_alacartetype] =data['data'][index].alacarte[index1].id_alacarte;
+            }
             priceArr[data['data'][index].alacarte[index1].id_alacarte] =data['data'][index].alacarte[index1].price;
+            x++;
           });
         //priceArr[data['data'][index].id_alacartetype] = 
       });
       this.priceType = priceArr;
+
       this.id_alacartetype = keyarr;
+      //console.log(keyarr);
+      //console.log(this.id_alacartetype);
+      //console.log(keyarr);
+      
       this.alacarteType = data['data'];
         //--------------
         this.restAlacarte.listAll().then(data1=>{
           let keyarr1=[];
           let priceArr1=[];
           data1['data'].forEach(function(key,index) {   
-            keyarr1[data1['data'][index].id_alacarte] =0;
+            
             //keyarr1.push(data1['data'][index].id_alacarte);
               data1['data'][index].alacarte.forEach(function(key1,index1){
+                keyarr1[data1['data'][index].alacarte[index1].id_alacarte] =0;
                 priceArr1[data1['data'][index].alacarte[index1].id_alacarte] =data1['data'][index].alacarte[index1].price;
               });
           });
 
           this.priceAl = priceArr1;
           this.id_alacarte=keyarr1;
+    
           this.length_id_alacarte = keyarr1;
 
           this.alacarte = data1['data'];
@@ -105,8 +140,8 @@ export class AlacartePage {
           this.loading.dismiss();
           console.log(err1);
         });
-        console.log(this.priceType);
-        console.log(this.priceAl);
+        //console.log(this.priceType);
+        //console.log(this.priceAl);
         
 
         //--------------      
@@ -115,8 +150,27 @@ export class AlacartePage {
       
       console.log(err);
     });
+
+   
+     
+    
+
   }
 
+  ionViewDidEnter(){
+    let id_alacartetype_temp=[];
+    let pricetype_temp = [];
+    let init_pay = 0;
+
+    id_alacartetype_temp = this.id_alacartetype;
+    pricetype_temp = this.priceType;
+    this.id_alacartetype.forEach(function(key1,index1){
+        init_pay += parseFloat(pricetype_temp[id_alacartetype_temp[index1]]);
+    });
+    this.totalPay += init_pay;
+   
+
+  }
 
   showLoader(){
     this.loading = this.loadingCtrl.create({
@@ -125,6 +179,7 @@ export class AlacartePage {
   
     this.loading.present();
   }
+  
   
   presentToast(msg) {
     let toast = this.toastCtrl.create({
@@ -149,19 +204,73 @@ export class AlacartePage {
       this.navCtrl.pop();
   }
 
-  priceAlacarte(){
-
+  priceAlacarte(id_al){
+    if(!this.id_alacarte_detect[id_al]){
+      this.id_alacarte_detect[id_al] = this.id_alacarte[id_al];
+    }
+    if(this.id_alacarte[id_al]==this.id_alacarte_detect[id_al]){
+      return false;
+    }else{
+      if(this.id_alacarte[id_al]=="0"){
+        alert(this.priceAlacarte[id_al]);
+      }else{
+        alert(this.priceAlacarte[id_al]);
+      }
+    }
   }
 
-  priceAlacarteType(){
+  
+  priceAlacarteType(first_id,second_id,parent_id){
 
+    if(!this.id_alacartetype_detect[parent_id]){
+      this.id_alacartetype_detect[parent_id] = this.id_alacartetype[parent_id];
+    }
+
+    if(this.id_alacartetype[parent_id]==this.id_alacartetype_detect[parent_id]){
+        //no changes
+        return false;
+    }else{
+       //changes has given
+       this.id_alacartetype_detect[parent_id] = this.id_alacartetype[parent_id];
+    }
+
+    if(this.id_alacartetype[parent_id]==first_id){
+        this.totalPay += parseFloat(this.priceType[first_id]);
+        this.totalPay -= parseFloat(this.priceType[second_id]);
+ 
+      }else{
+        this.totalPay -= parseFloat(this.priceType[first_id]);
+        this.totalPay += parseFloat(this.priceType[second_id]);
+    }
+    
   }
 
   doSubmit(){
-    let l = this.length_id_alacarte;
-    this.length_id_alacarte.forEach(function(key,index){
-        console.log(l[index]);
-    });
+    //let l = this.length_id_alacarte;
+    //this.length_id_alacarte.forEach(function(key,index){
+        //console.log(index);
+    //});
+
+    if(!this.id_rackstatus_current){
+      this.presentToast("Select one of Booking Commit Type option.");
+      //this.content.scrollToTop();
+      //scrollContent.scrollToTop();
+      return false;
+    }
+    console.log(this.id_alacartetype);
     console.log(this.id_alacarte);
+
+    //  this.navCtrl.push(FormcustomerPage,{
+    //    id_dacen:this.id_dacen,
+    //    id_floor:this.id_floor,
+    //    id_sector:this.id_sector,
+    //    ids_rack:this.ids_rack,
+    //    totalPay:this.totalPay,
+    //    alacarteType:this.id_alacartetype,
+    //    alacarte:this.id_alacarte,
+    //    id_rackstatus_current:this.id_rackstatus_current,
+    //    commitdays:this.commitday
+    //  });
+
   }
 }

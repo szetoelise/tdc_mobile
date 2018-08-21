@@ -12,7 +12,7 @@
 </ion-header>
 
 
-<ion-content>
+<ion-content #Content>
    
     <ion-card>
         <ion-card-header>
@@ -34,7 +34,7 @@
               <ion-label style="white-space: wrap;">Uncommitted Booking 
                 <p style="white-space: wrap;"><small>Undedicated for booking data center</small></p>
               </ion-label>
-              <ion-radio value="4"></ion-radio>
+              <ion-radio value="4"  (checked)="checked"></ion-radio>
             </ion-item>
           
     
@@ -61,7 +61,7 @@
           [(ngModel)]="id_alacartetype[data.id_alacartetype]" 
           name="id_alacartetype[]"
           required 
-          (ngModelChange)='priceAlacarteType()'>
+          (ngModelChange)='priceAlacarteType(data.alacarte[0].id_alacarte,data.alacarte[1].id_alacarte,data.id_alacartetype)'>
               <ion-item text-wrap>
                   {{data.question}}
                 </ion-item>
@@ -87,13 +87,13 @@
           <ion-list radio-group *ngFor="let data1 of data.alacarte" 
           [(ngModel)]="id_alacarte[data1.id_alacarte]" 
           required 
-          (ngModelChange)='priceAlacarte()'>
+          (ngModelChange)='priceAlacarte(data1.id_alacarte)'>
               <ion-item text-wrap>
                   Do you need "{{data1.alacarte_type}}" to managed {{data1.alacarte_name}} ?
                 </ion-item>
               <ion-item>
                 <ion-label>Yes</ion-label>
-                <ion-radio value="1"></ion-radio>
+                <ion-radio value="{{data1.id_alacarte}}"></ion-radio>
               </ion-item>
               <ion-item>
                   <ion-label>No</ion-label>

@@ -7,12 +7,52 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>formcustomer</ion-title>
+    <ion-title>Customer Info</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
-<ion-content padding>
+<ion-content>
+<div>
+  <ion-item>
+    <ion-label color="primary" stacked>AM Reference</ion-label>
+    <ion-input type="text" placeholder="AM Reference" [(ngModel)]="am"></ion-input>
+  </ion-item>
+
+  <ion-item>
+      <ion-label color="primary" stacked>Company Name / Client</ion-label>
+      <ion-input type="text" placeholder="Company Name / Client" [(ngModel)]="company"></ion-input>
+  </ion-item>
+  
+  <ion-item>
+      <ion-label color="primary" stacked>City of Company</ion-label>
+      <ion-input type="text" placeholder="City of Company" [(ngModel)]="city"></ion-input>
+    </ion-item>
+
+  <ion-item>
+        <ion-label color="primary" stacked>Price Preferred</ion-label>
+        <ion-input type="text" placeholder="Price Preferred" [(ngModel)]="price"></ion-input>
+  </ion-item>        
+</div>
 
 </ion-content>
+<ion-footer>
+  <ion-toolbar>
+      <button ion-button full outline>{{totalPay | currency:"IDR":true:"1.0"}}</button>
+  <ion-buttons left>
+      <button ion-button icon-start (click)="toBack()">
+          <ion-icon name="md-arrow-back"></ion-icon>
+          Back
+        </button>
+        </ion-buttons>
+        <ion-buttons right>
+        <button ion-button icon-end (click)="doSubmit()">
+          Next
+          <ion-icon name="md-arrow-forward"></ion-icon>
+        </button>
+      </ion-buttons>
+  </ion-toolbar>
+
+  
+</ion-footer>
