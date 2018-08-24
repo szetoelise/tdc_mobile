@@ -47,9 +47,9 @@ export class PickrackPage {
     this.id_dacen = this.navParams.get("id_dacen");
     this.id_sector = this.navParams.get("id_sector");
     this.id_floor = this.navParams.get("id_floor");
-    this.showLoader();
+    this.global.showLoader("Please Wait..");
     this.restDacen.mappingRack(this.id_dacen,this.id_sector,this.id_floor).then(data=>{
-      this.loading.dismiss();
+      this.global.loading.dismiss();
       this.rack = data['data'];
       let keyarr=[];
       let conditionarr=[];
@@ -64,8 +64,10 @@ export class PickrackPage {
       this.pickedClass = keyarr;
       this.pickedCondition = conditionarr;
       this.pickedPrice = pricearr;
+      
       //console.log(this.rack);
     }).catch(err=>{
+      this.global.loading.dismiss();
       console.log(err);
     });
   }
@@ -97,7 +99,7 @@ export class PickrackPage {
         }
     });
     if(!pickedArr.length){
-      this.presentToast("Anda belum memilih rack");
+      this.global.showToast("Anda belum memilih rack");
       return false;
     }else{
       this.navCtrl.push(AlacartePage,{
@@ -110,26 +112,5 @@ export class PickrackPage {
     }
   }
 
-  showLoader(){
-    this.loading = this.loadingCtrl.create({
-      content: 'Loading...'
-    });
-  
-    this.loading.present();
-  }
-  
-  presentToast(msg) {
-    let toast = this.toastCtrl.create({
-      message: msg,
-      duration: 3000,
-      position: 'bottom',
-      dismissOnPageChange: true
-    });
-  
-    toast.onDidDismiss(() => {
-      console.log('Dismissed toast');
-    });
-  
-    toast.present();
-  }
+
 }
