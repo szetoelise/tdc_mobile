@@ -54,7 +54,7 @@ export class AvailabilityPage {
       });
         this.loading.dismiss();
         this.dacen = dacen;
-        console.log(dacen);
+        //console.log(dacen);
     }).catch(err=>{
       console.log(err);
     });

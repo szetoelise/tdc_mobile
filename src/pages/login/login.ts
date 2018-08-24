@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { IonicPage,  NavParams } from 'ionic-angular';
 import { HomePage } from '../home/home';
-import { NavController, LoadingController, AlertController, ToastController } from 'ionic-angular';
+import { NavController} from 'ionic-angular';
 import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
-
+import { GlobalProvider } from '../../providers/global/global';
 /**
  * Generated class for the LoginPage page.
  *
@@ -20,73 +20,65 @@ export class LoginPage {
   loading:any;
 	loginData = { email:'', password:'' };
 	data: any;
-  constructor(private atrCtrl:AlertController, private authService:AuthServiceProvider,private toastCtrl:ToastController,public navCtrl: NavController, public navParams: NavParams, private loadingCtrl:LoadingController) {
+  constructor(
+    private authService:AuthServiceProvider,
+    public navCtrl: NavController, 
+    public navParams: NavParams, 
+    private global:GlobalProvider
+  ) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad LoginPage');
   }
 
+  doLogout(a,b){
+    this.loginData.email = a;
+    this.loginData.password = b;
+    this.authService.logout(this.loginData).then(data=>{
+
+    });
+  }
+
   doLogin()
   {
-		this.showLoader();
+		this.global.showLoader("Authenticating....");
 		this.authService.login(this.loginData).then((result) => {
-			this.loading.dismiss();
+      //console.log(result);
+      //return false;
+			this.global.loading.dismiss();
 			this.data = result;
 			if(this.data.code=='200')
 			{
-        console.log(this.data.data.email);
-        localStorage.setItem('id_user_role', this.data.data.id_user_role);
-        localStorage.setItem('id_user', this.data.data.id_user);
-        localStorage.setItem('email', this.data.data.email);
-        localStorage.setItem('password', this.data.data.password);
-        localStorage.setItem('nik', this.data.data.nik);
-        localStorage.setItem('emp_name', this.data.data.emp_name);
-        localStorage.setItem('id_title', this.data.data.id_title);
-        localStorage.setItem('is_active', this.data.data.is_active);
-        localStorage.setItem('emp_title', this.data.data.emp_title);
-        localStorage.setItem('id_role', this.data.data.id_role);
-        localStorage.setItem('role', this.data.data.role);
-        localStorage.setItem('id_whitelist', this.data.data.id_whitelist);
-        localStorage.setItem('company_name', this.data.data.company_name);
+        console.log(this.data.data[0]['id_user_role']);
+        this.global.saveStorage('id_user_role', this.data.data[0]['id_user_role']);
+        this.global.saveStorage('id_user', this.data.data[0]['id_user']);
+        this.global.saveStorage('email', this.data.data[0]['email']);
+        this.global.saveStorage('password', this.data.data[0]['password']);
+        this.global.saveStorage('nik', this.data.data[0]['nik']);
+        this.global.saveStorage('emp_name', this.data.data[0]['emp_name']);
+        this.global.saveStorage('id_title', this.data.data[0]['id_title']);
+        this.global.saveStorage('is_active', this.data.data[0]['is_active']);
+        this.global.saveStorage('emp_title', this.data.data[0]['emp_title']);
+        this.global.saveStorage('id_role', this.data.data[0]['id_role']);
+        this.global.saveStorage('role', this.data.data[0]['role']);
+        this.global.saveStorage('id_whitelist', this.data.data[0]['id_whitelist']);
+        this.global.saveStorage('company_name', this.data.data[0]['company_name']);
+        this.global.saveStorage('islogin', true);
+        
         this.navCtrl.setRoot(HomePage);}
 				else{
-					let alert = this.atrCtrl.create({
-						title: 'Please try again...',
-						subTitle: this.data.Message,
-						buttons: ['OK']
-					});
-					alert.present();
+          this.global.alertOK("Login failed",this.data.message);         
 				}
 			}, (err) => {
-				this.loading.dismiss();
-				this.presentToast(err);
+        this.global.loading.dismiss();
+        this.global.showToast(err);
 			});
   }
 
 
 
-  showLoader(){
-    this.loading = this.loadingCtrl.create({
-      content: 'Authenticating...'
-    });
-  
-    this.loading.present();
-  }
-  
-  presentToast(msg) {
-    let toast = this.toastCtrl.create({
-      message: msg,
-      duration: 3000,
-      position: 'bottom',
-      dismissOnPageChange: true
-    });
-  
-    toast.onDidDismiss(() => {
-      console.log('Dismissed toast');
-    });
-  
-    toast.present();
-  }
+ 
+
 
 }

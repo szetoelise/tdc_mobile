@@ -24,12 +24,15 @@ import {PickrackPage} from '../pages/pickrack/pickrack';
 import {AlacartePage} from '../pages/alacarte/alacarte';
 import {PickbuildingPage} from '../pages/pickbuilding/pickbuilding';
 import {FormcustomerPage} from '../pages/formcustomer/formcustomer';
+import {SummaryPage} from '../pages/summary/summary';
+
 
 import { GlobalProvider } from '../providers/global/global';
 import { AuthServiceProvider } from '../providers/auth-service/auth-service';
 import { RestDacenCategoryProvider } from '../providers/rest-dacen-category/rest-dacen-category';
 import { RestDacenProvider } from '../providers/rest-dacen/rest-dacen';
 
+import { IonicStorageModule } from '@ionic/storage';
 
 import {DatehumanPipe} from '../pipes/datehuman/datehuman';
 import {StringmanPipe} from '../pipes/stringman/stringman'; 
@@ -38,6 +41,7 @@ import { PhotoViewer } from '@ionic-native/photo-viewer';
 import { LazyLoadImageModule } from 'ng-lazyload-image';
 import { VisitProvider } from '../providers/visit/visit';
 import { AlacarteProvider } from '../providers/alacarte/alacarte';
+import { BookingProvider } from '../providers/booking/booking';
 
 @NgModule({
   declarations: [
@@ -58,14 +62,19 @@ import { AlacarteProvider } from '../providers/alacarte/alacarte';
     PickrackPage,
     AlacartePage,
     PickbuildingPage,
-    FormcustomerPage
+    FormcustomerPage,
+    SummaryPage
   ],
   imports: [
     BrowserModule,
     HttpModule,
     HttpClientModule,
     LazyLoadImageModule,
-    IonicModule.forRoot(MyApp)
+    IonicModule.forRoot(MyApp),
+    IonicStorageModule.forRoot({
+        name: 'tdc',
+        driverOrder: ['indexeddb', 'sqlite', 'websql']
+    })
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -86,7 +95,8 @@ import { AlacarteProvider } from '../providers/alacarte/alacarte';
     PickrackPage,
     AlacartePage,
     PickbuildingPage,
-    FormcustomerPage
+    FormcustomerPage,
+    SummaryPage
     
   ],
   providers: [
@@ -101,7 +111,8 @@ import { AlacarteProvider } from '../providers/alacarte/alacarte';
     VisitProvider,
     AlacarteProvider,
     DatehumanPipe,
-    StringmanPipe
+    StringmanPipe,
+    BookingProvider
   ]
 })
 export class AppModule {}

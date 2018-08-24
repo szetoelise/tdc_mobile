@@ -20,7 +20,7 @@ import { first } from 'rxjs/operators';
 export class AlacartePage {
   @ViewChild(Content, {read: ElementRef}) content: Content;
   public id_rackstatus_current;
-  public commitday:any;
+  public commitday;
   public commit:boolean=false;
   public alacarteType;
   public alacarte;
@@ -120,28 +120,30 @@ export class AlacartePage {
         this.restAlacarte.listAll().then(data1=>{
           let keyarr1=[];
           let priceArr1=[];
-          data1['data'].forEach(function(key,index) {   
-            
+          data1['data'].forEach(function(key,index) {               
             //keyarr1.push(data1['data'][index].id_alacarte);
               data1['data'][index].alacarte.forEach(function(key1,index1){
-                keyarr1[data1['data'][index].alacarte[index1].id_alacarte] =0;
+                keyarr1[data1['data'][index].alacarte[index1].id_alacarte] ="0";
                 priceArr1[data1['data'][index].alacarte[index1].id_alacarte] =data1['data'][index].alacarte[index1].price;
               });
           });
 
           this.priceAl = priceArr1;
           this.id_alacarte=keyarr1;
-    
+          //console.log(this.priceAl);
           this.length_id_alacarte = keyarr1;
 
           this.alacarte = data1['data'];
+          
+          this.firstRun();
+
           this.loading.dismiss();
         }).catch(err1=>{
           this.loading.dismiss();
           console.log(err1);
         });
-        //console.log(this.priceType);
-        //console.log(this.priceAl);
+       
+
         
 
         //--------------      
@@ -158,19 +160,78 @@ export class AlacartePage {
   }
 
   ionViewDidEnter(){
-    let id_alacartetype_temp=[];
-    let pricetype_temp = [];
-    let init_pay = 0;
+    //console.log("enter");
 
-    id_alacartetype_temp = this.id_alacartetype;
-    pricetype_temp = this.priceType;
-    this.id_alacartetype.forEach(function(key1,index1){
-        init_pay += parseFloat(pricetype_temp[id_alacartetype_temp[index1]]);
-    });
-    this.totalPay += init_pay;
    
-
+    //if(!this.id_alacartetype_detect[parent_id]){
+    //  this.id_alacartetype_detect[parent_id] = this.id_alacartetype[parent_id];
+    //}
   }
+
+
+ firstRun(){
+  let id_alacartetype_temp=[];
+  let id_alacarte_temp=[];
+  
+  let pricetype_temp = [];
+  let init_pay = 0;
+  let id_alacartetype_detect_temp=[];
+  let id_alacarte_detect_temp=[];
+
+  let statusempty:boolean=false;
+
+  if(id_alacartetype_detect_temp.length==0){
+    statusempty = true;
+  }else{
+    statusempty = false;
+  }
+
+  id_alacartetype_temp = this.id_alacartetype;
+  pricetype_temp = this.priceType;
+
+  this.id_alacartetype.forEach(function(key1,index1){
+      init_pay += parseFloat(pricetype_temp[id_alacartetype_temp[index1]]);
+      if(statusempty) {
+      id_alacartetype_detect_temp[index1] = id_alacartetype_temp[index1];
+      }
+  });
+  this.totalPay += init_pay;
+  id_alacarte_temp = this.id_alacarte;
+  //console.log(this.id_alacarte);
+  this.id_alacarte.forEach(function(key1,index1){
+    id_alacarte_detect_temp[index1] = id_alacarte_temp[index1];
+    //console.log(id_alacarte_temp[index1]);
+  });
+  this.id_alacarte_detect = id_alacarte_detect_temp;
+ 
+    //if(!this.id_alacarte_detect[id_al]){
+    //   this.id_alacarte_detect[id_al] = this.id_alacarte[id_al];
+    // }
+
+ }
+
+
+
+ priceAlacarte(id_al){
+
+  // if(!this.id_alacarte_detect[id_al]){
+  //   this.id_alacarte_detect[id_al] = this.id_alacarte[id_al];
+  // }
+
+  if(this.id_alacarte[id_al]==this.id_alacarte_detect[id_al]){
+    return false;
+  }else{
+    if(this.id_alacarte[id_al]=="0"){
+      this.totalPay -= parseFloat(this.priceAl[id_al]);
+      this.id_alacarte_detect[id_al] = "0";
+    }else{
+      this.totalPay += parseFloat(this.priceAl[id_al]);
+      this.id_alacarte_detect[id_al] =this.id_alacarte[id_al]; 
+      //alert(this.priceAl[id_al]);
+    }
+  }
+}
+
 
   showLoader(){
     this.loading = this.loadingCtrl.create({
@@ -204,27 +265,9 @@ export class AlacartePage {
       this.navCtrl.pop();
   }
 
-  priceAlacarte(id_al){
-    if(!this.id_alacarte_detect[id_al]){
-      this.id_alacarte_detect[id_al] = this.id_alacarte[id_al];
-    }
-    if(this.id_alacarte[id_al]==this.id_alacarte_detect[id_al]){
-      return false;
-    }else{
-      if(this.id_alacarte[id_al]=="0"){
-        alert(this.priceAlacarte[id_al]);
-      }else{
-        alert(this.priceAlacarte[id_al]);
-      }
-    }
-  }
 
   
   priceAlacarteType(first_id,second_id,parent_id){
-
-    if(!this.id_alacartetype_detect[parent_id]){
-      this.id_alacartetype_detect[parent_id] = this.id_alacartetype[parent_id];
-    }
 
     if(this.id_alacartetype[parent_id]==this.id_alacartetype_detect[parent_id]){
         //no changes
@@ -253,24 +296,25 @@ export class AlacartePage {
 
     if(!this.id_rackstatus_current){
       this.presentToast("Select one of Booking Commit Type option.");
-      //this.content.scrollToTop();
-      //scrollContent.scrollToTop();
       return false;
     }
-    console.log(this.id_alacartetype);
-    console.log(this.id_alacarte);
-
-    //  this.navCtrl.push(FormcustomerPage,{
-    //    id_dacen:this.id_dacen,
-    //    id_floor:this.id_floor,
-    //    id_sector:this.id_sector,
-    //    ids_rack:this.ids_rack,
-    //    totalPay:this.totalPay,
-    //    alacarteType:this.id_alacartetype,
-    //    alacarte:this.id_alacarte,
-    //    id_rackstatus_current:this.id_rackstatus_current,
-    //    commitdays:this.commitday
-    //  });
+    //console.log(this.id_alacartetype);
+    //console.log(this.id_alacarte);
+    if(!this.commitday){
+      this.commitday =0;       
+    }
+   
+      this.navCtrl.push(FormcustomerPage,{
+        id_dacen:this.id_dacen,
+        id_floor:this.id_floor,
+        id_sector:this.id_sector,
+        ids_rack:this.ids_rack,
+        totalPay:this.totalPay,
+        alacarteType:this.id_alacartetype,
+        alacarte:this.id_alacarte,
+        id_rackstatus_current:this.id_rackstatus_current,
+        commitdays:this.commitday
+      });
 
   }
 }

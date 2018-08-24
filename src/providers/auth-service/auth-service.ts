@@ -1,5 +1,6 @@
 import { Http, Headers } from '@angular/http';
 import { Injectable } from '@angular/core';
+import { Storage } from '@ionic/storage';
 import {GlobalProvider} from '../global/global';
 
 /*
@@ -11,7 +12,10 @@ import {GlobalProvider} from '../global/global';
 @Injectable()
 export class AuthServiceProvider {
 
-  constructor(public http: Http,private global:GlobalProvider) {
+  constructor(
+    public http: Http,
+    private global:GlobalProvider,
+    private storage:Storage) {
     
     //console.log('Hello AuthServiceProvider Provider');
   }
@@ -33,7 +37,8 @@ export class AuthServiceProvider {
     return new Promise ((resolve, reject) => {
       let headers = new Headers();
       headers.append('content-type', 'application/x-www-form-urlencoded');
-      this.http.post(this.global.endpoint+'Api_users/logout?email='+credentials.email+'&password='+credentials.password, JSON.stringify(credentials), {headers: headers})
+      let myData = "email="+ credentials.email + "&password="+ credentials.password;
+      this.http.post(this.global.endpoint+'Api_users/logout', myData, {headers: headers})
       .subscribe(res => {
         resolve(res.json());
       }, (err) => {

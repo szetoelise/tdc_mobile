@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import {RestDacenProvider} from '../../providers/rest-dacen/rest-dacen';
 import {PickrackPage} from '../pickrack/pickrack';
+import {GlobalProvider} from '../../providers/global/global';
 /**
  * Generated class for the PickfloorPage page.
  *
@@ -15,25 +16,28 @@ import {PickrackPage} from '../pickrack/pickrack';
   templateUrl: 'pickfloor.html',
 })
 export class PickfloorPage {
+  //public loading;
   public id_dacen:string;
   public id_building:string;
   public floor:any;
   constructor(public navCtrl: NavController, 
     public navParams: NavParams,
-    public restDacen:RestDacenProvider) {
+    public restDacen:RestDacenProvider,
+    public global:GlobalProvider  
+  ) {
   }
 
   ionViewDidLoad() {
-    //this.id_dacen = "1";
-    //this.id_building = "1";
     this.id_dacen = this.navParams.get("id_dacen");
     this.id_building = this.navParams.get("id_building");
-
+    this.global.showLoader("Loading");
     this.restDacen.listFloor(this.id_dacen,this.id_building).then(data=>{
-      console.log(data['data']);
       this.floor = data['data'];
+      this.global.loading.dismiss();
     }).catch(err=>{
         console.log(err);
+        this.global.showToast(err);
+        this.global.loading.dismiss();
     });
     
     
@@ -48,4 +52,6 @@ export class PickfloorPage {
   }
 
 
+  
+ 
 }
