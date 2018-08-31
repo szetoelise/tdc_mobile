@@ -30,6 +30,8 @@ export class FormcustomerPage {
   public id_rackstatus_current:any;
   public id_alacarte:any;
   public commitdays;
+  public note_additional;
+  public invoice;
   constructor(public navCtrl: NavController, 
     public navParams: NavParams,
     private global:GlobalProvider,
@@ -44,7 +46,9 @@ export class FormcustomerPage {
       this.id_alacarte = this.navParams.get("alacarte");
       this.commitdays = parseInt(this.navParams.get("commitdays"));
       this.id_rackstatus_current = this.navParams.get("id_rackstatus_current");
-
+      this.note_additional = this.navParams.get("note_additional");
+      this.invoice = this.navParams.get("invoice");
+      console.log(this.id_alacarte);
   }
 
   ionViewDidLoad() {
@@ -59,22 +63,22 @@ export class FormcustomerPage {
   doSubmit()
   {
     if(!this.am){
-      this.global.showToast("AM Reference input column cannot be empty.");
-      return false;
+      //this.global.alertOK("Error Input","AM Reference input column cannot be empty.");
+      //return false;
     }
 
     if(!this.company){
-      this.global.showToast("Company Name / Client input column cannot be empty.");
+      this.global.alertOK("Error Input","Company Name / Client input column cannot be empty.");
       return false;
     }
 
     if(!this.city){
-      this.global.showToast("City of company input column cannot be empty.");
+      this.global.alertOK("Error Input","City of company input column cannot be empty.");
       return false;
     }
 
     if(!this.price){
-      this.global.showToast("Price input column cannot be empty.");
+      this.global.alertOK("Error Input","Price input column cannot be empty.");
       return false;
     }
 
@@ -90,21 +94,23 @@ export class FormcustomerPage {
       a++;
     });
       postString +="&days_commit=" + this.commitdays;
-    let id_alacarteType_temp = this.id_alacartetype;
-    this.id_alacartetype.forEach(function(key,index){
-      postString +="&id_alacarte[]="  + id_alacarteType_temp[index];
-    });
+    //let id_alacarteType_temp = this.id_alacartetype;
+    //this.id_alacartetype.forEach(function(key,index){
+    //  postString +="&id_alacarte[]="  + id_alacarteType_temp[index];
+    //});
 
     let id_alacarte_temp = this.id_alacarte;
     this.id_alacarte.forEach(function(key,index){
-      if(parseInt(id_alacarteType_temp[index]) > 0) {
+      //if(parseInt(id_alacarteType_temp[index]) > 0) {
         postString +="&id_alacarte[]="  +index;
-      }
+      //}
     });
     postString +="&validator=" + this.am;
     postString +="&customer_name=" + this.company;
     postString +="&customer_address=" + this.city;
     postString +="&price_request=" + this.price;
+    postString +="&note_additional=" + this.note_additional;
+    postString +="&invoice=" + this.invoice;
     
     this.global.storage.ready().then(()=>{
       this.global.storage.get("id_user").then(id_user=>{
@@ -115,7 +121,9 @@ export class FormcustomerPage {
           //console.log(datareturn['id_booking']);
 
         }).catch(err=>{
-          console.log(err);
+          this.global.loading.dismiss();
+          this.global.alertOK("Error Sending Data",err);
+          //console.log(err);
         });
       })
     })

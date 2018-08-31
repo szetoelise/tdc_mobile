@@ -53,7 +53,25 @@
         </ion-list>
       </ion-card>
 
-      <ion-card *ngFor="let data of alacarteType">
+      <ion-card *ngFor="let data of alacarte">
+        <ion-list class="red-back">
+          <ion-item>
+            <ion-label>{{data.alacarte_type}}</ion-label>
+            <ion-checkbox [(ngModel)]="id_alacarte[data.id_alacarte]" (ngModelChange)='alacarteStatusChange($event,data.id_alacarte)'></ion-checkbox>
+          </ion-item>
+        </ion-list>      
+      </ion-card>
+
+      <ion-card  >
+          <ion-list *ngIf="isother">
+              <ion-item>
+                  <ion-label color="primary" stacked>Other</ion-label>
+                  <ion-textarea type="text" placeholder="Other" [(ngModel)]="note_additional"></ion-textarea>
+              </ion-item>
+          </ion-list>  
+        </ion-card>
+
+      <!-- <ion-card *ngFor="let data of alacarteType">
           <ion-card-header text-wrap>
               {{data.alacarte_type}}
           </ion-card-header>
@@ -77,10 +95,10 @@
                    
                   </ion-item-divider>  
           </ion-list>
-      </ion-card>
+      </ion-card> -->
 
     
-      <ion-card *ngFor="let data of alacarte">
+      <!-- <ion-card *ngFor="let data of alacarte2">
           <ion-card-header text-wrap>
               {{data.alacarte_type}}
           </ion-card-header>
@@ -103,7 +121,7 @@
                    
                   </ion-item-divider>  
           </ion-list>
-      </ion-card>
+      </ion-card> -->
  
       
 

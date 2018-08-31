@@ -4,6 +4,8 @@ import { HomePage } from '../home/home';
 import { NavController} from 'ionic-angular';
 import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
 import { GlobalProvider } from '../../providers/global/global';
+import {ForgotpasswordPage} from '../forgotpassword/forgotpassword';
+import { RegisterPage } from '../register/register';
 /**
  * Generated class for the LoginPage page.
  *
@@ -18,8 +20,10 @@ import { GlobalProvider } from '../../providers/global/global';
 })
 export class LoginPage {
   loading:any;
-	loginData = { email:'', password:'' };
-	data: any;
+	loginData = { email:'', password:'',id_role:'' };
+  data: any;
+  dataRoles: any;
+  public userexist:boolean=false;
   constructor(
     private authService:AuthServiceProvider,
     public navCtrl: NavController, 
@@ -40,13 +44,49 @@ export class LoginPage {
     });
   }
 
+  rolesChange(){
+
+  }
+
+  back(){
+    this.userexist = false;
+    this.loginData.email = "";
+    this.loginData.password = "";
+  }
+
+  checkuser(){
+
+
+    if(!this.global.checkEmail(this.loginData.email)){
+      this.global.alertOK("Error Input","Not a valid email address");
+      return false;
+    }
+
+		this.global.showLoader("Authenticating....");
+		this.authService.getRoles(this.loginData.email).then((result) => {
+ 			this.global.loading.dismiss();
+      this.dataRoles = result['data'];
+
+      console.log(this.dataRoles);
+			if(parseInt(result['total'])>0)
+      {
+        this.userexist = true;
+      }else{
+        this.userexist = false;
+        this.global.alertOK("Error","Email address not registered");
+        
+      }
+    }).catch(err=>{
+      this.userexist = false;
+      this.global.loading.dismiss();
+    });
+  }
+
   doLogin()
   {
 		this.global.showLoader("Authenticating....");
 		this.authService.login(this.loginData).then((result) => {
-      //console.log(result);
-      //return false;
-			this.global.loading.dismiss();
+ 			this.global.loading.dismiss();
 			this.data = result;
 			if(this.data.code=='200')
 			{
@@ -77,8 +117,15 @@ export class LoginPage {
   }
 
 
-
+  forgotPassword()
+  {
+    this.navCtrl.push(ForgotpasswordPage);
+  }
  
-
+  register()
+  {
+    this.navCtrl.push(RegisterPage);
+  }
+ 
 
 }

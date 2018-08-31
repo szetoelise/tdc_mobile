@@ -16,6 +16,7 @@ import {PickfloorPage} from '../pages/pickfloor/pickfloor';
 import {AlacartePage} from '../pages/alacarte/alacarte';
 import {PickbuildingPage} from '../pages/pickbuilding/pickbuilding';
 import {SummaryPage} from '../pages/summary/summary';
+import {PickrackPage} from '../pages/pickrack/pickrack';
 
 @Component({
   templateUrl: 'app.html'
@@ -23,7 +24,7 @@ import {SummaryPage} from '../pages/summary/summary';
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
   rootPage:any =HomePage ;
-  //rootPage:any = SummaryPage;
+  //rootPage:any = AlacartePage;
   public x:Date;
  
   constructor(

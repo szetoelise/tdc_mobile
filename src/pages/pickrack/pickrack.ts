@@ -27,7 +27,7 @@ export class PickrackPage {
   public pickedClass=[]; 
   public pickedCondition=[];
   public pickedPrice=[];
-  
+  public invoice;
   public BaseURL:string;
   constructor(
     public navCtrl: NavController, 
@@ -40,6 +40,7 @@ export class PickrackPage {
     private toastCtrl:ToastController,
     private global:GlobalProvider) {
       this.BaseURL = this.global.endpoint;
+
   }
 
   ionViewDidLoad() {
@@ -54,13 +55,22 @@ export class PickrackPage {
       let keyarr=[];
       let conditionarr=[];
       let pricearr=[];
+
+      if(data['data']=="0"){
+        this.global.alertOK("Rack","Data rack not found");
+        this.navCtrl.pop();
+        return false;
+      }
+      let cd:string;
       data['data'].forEach(function(key,index) {   
         //console.log(data['data'][index].rack_name);   
         keyarr[data['data'][index].id_rack] = 'rackchild';
         conditionarr[data['data'][index].id_rack] = false;
-        pricearr[data['data'][index].id_rack] = data['data'][index].price;
+        pricearr[data['data'][index].id_rack] = data['data'][index].publish_price;
+        cd = data['data'][index].dacen_code + data['data'][index].sector_code + data['data'][index].floor_level;
       });
-
+      this.invoice = cd;
+      console.log(this.invoice);
       this.pickedClass = keyarr;
       this.pickedCondition = conditionarr;
       this.pickedPrice = pricearr;
@@ -107,7 +117,8 @@ export class PickrackPage {
         id_floor:this.id_floor,
         id_sector:this.id_sector,
         ids_rack:pickedArr,
-        totalPay:this.totalPay
+        totalPay:this.totalPay,
+        invoice:this.invoice
       })
     }
   }

@@ -35,18 +35,6 @@ export class HomePage {
     private book:BookingProvider) {
     this.baseURL = this.global.endpoint;
    
-    // let data = {};
-    // data["id_rack[]"] = 0;
-    // data["id_rack[]"] = 1;
-    // data["id_rack[]"] = 2;
-    
-    //console.log(data);
-      let post = 'id_alacarte[1]=1&id_alacarte[2]=2';
-      this.book.tesBooking(post).then(data=>{
-        console.log("Test Booking Sukses: " + data);
-      }).catch(err=>{
-        console.log("Test Booking Error: " + err);
-      })
 
       sp.hide();  
       this.global.storage.ready().then(()=>{

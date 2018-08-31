@@ -25,7 +25,8 @@ import {AlacartePage} from '../pages/alacarte/alacarte';
 import {PickbuildingPage} from '../pages/pickbuilding/pickbuilding';
 import {FormcustomerPage} from '../pages/formcustomer/formcustomer';
 import {SummaryPage} from '../pages/summary/summary';
-
+import {ForgotpasswordPage} from '../pages/forgotpassword/forgotpassword';
+import {RegisterPage} from '../pages/register/register';
 
 import { GlobalProvider } from '../providers/global/global';
 import { AuthServiceProvider } from '../providers/auth-service/auth-service';
@@ -63,7 +64,9 @@ import { BookingProvider } from '../providers/booking/booking';
     AlacartePage,
     PickbuildingPage,
     FormcustomerPage,
-    SummaryPage
+    SummaryPage,
+    ForgotpasswordPage,
+    RegisterPage
   ],
   imports: [
     BrowserModule,
@@ -96,7 +99,9 @@ import { BookingProvider } from '../providers/booking/booking';
     AlacartePage,
     PickbuildingPage,
     FormcustomerPage,
-    SummaryPage
+    SummaryPage,
+    ForgotpasswordPage,
+    RegisterPage
     
   ],
   providers: [

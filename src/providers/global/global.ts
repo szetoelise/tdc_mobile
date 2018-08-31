@@ -69,8 +69,16 @@ showToast(msg,duration=3000,position="bottom",dismissOnPageChange=true) {
   toast.onDidDismiss(() => {
     //console.log('Dismissed toast');
   });
-
   toast.present();
+}
+
+checkEmail(email:string){
+  var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  if(!re.test(email)) {
+    return false;
+  }else{
+    return true;
+  }
 }
 
 }

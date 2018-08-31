@@ -14,25 +14,40 @@
     </ion-row>
     <ion-row>
           <ion-col>
-                <ion-input style="background-color: transparent !important; color:white;" [(ngModel)]="loginData.email"  name="email" type="email" placeholder="Email" required></ion-input>
-                <ion-input style="background-color: transparent !important; color:white;" [(ngModel)]="loginData.password"  name="password" type="password" placeholder="Password" required></ion-input>
-            <!--
-              <ion-list>
-                  <ion-item>
-                      
-                  </ion-item>          
-                  <ion-item>
-                      
-                  </ion-item>                    
-              </ion-list>
-            -->
+                <ion-label color="light"  stacked>Email</ion-label>
+                <ion-input [disabled]="userexist" style="background-color: #ffffff !important; color: #000000; border-radius: 4px;" [(ngModel)]="loginData.email"  name="email" type="email" placeholder="Email" required></ion-input>
+                <div *ngIf="userexist">
+                    <ion-label color="light"  stacked >Roles</ion-label>
+                    <ion-select [(ngModel)]="loginData.id_role" (ngModelChange)='rolesChange()' style="background-color: #ffffff !important; color: #000000; border-radius: 4px; max-width: 100% !important;">
+                             <ion-option  *ngFor="let roles of dataRoles" value="{{roles.id_role}}">Data Center {{roles.role}}</ion-option>                    
+                    </ion-select>
+                    <ion-label color="light"  stacked>Password</ion-label>
+                    <ion-input style="background-color: #ffffff !important; color: #000000; border-radius: 4px;" [(ngModel)]="loginData.password"  name="password" type="password" placeholder="Password" required></ion-input>
+                </div>
           </ion-col>
     </ion-row>
-    <ion-row>
-        <ion-col style="text-align: center;">
-                <button class="bgbuttonlogin" ion-button  round  (click)="doLogin()">Login</button>
-        </ion-col>
-  </ion-row>
+    
+        <ion-row *ngIf="!userexist">
+                <ion-col style="text-align: center;">
+                        <button class="bgbuttonlogin" ion-button  round  (click)="checkuser()"><ion-icon name="md-arrow-forward"></ion-icon></button>
+                </ion-col>
+        </ion-row>
+        <ion-row *ngIf="userexist">
+            <ion-col style="text-align: center;">
+                    <button class="bgbuttonlogin" ion-button  round  (click)="back()"><ion-icon name="md-arrow-back"></ion-icon></button>
+                    <button class="bgbuttonlogin" ion-button  round  (click)="doLogin()">Login</button>
+            </ion-col>
+        </ion-row>
+        <br/><br/>
+
 </ion-grid>
 
 </ion-content>
+<ion-footer>
+<ion-grid>
+        <ion-row *ngIf="!userexist">
+                <ion-col col-6 style="text-align:left; color:#ffffff;" (click)="forgotPassword()" tappable>Forgot Password?</ion-col>
+                <ion-col col-6 style="text-align:right; color:#ffffff;" (click)="register()" tappable>Register</ion-col>
+            </ion-row>
+</ion-grid>
+</ion-footer>
