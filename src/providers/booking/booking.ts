@@ -68,4 +68,41 @@ export class BookingProvider {
       })
     });
   }   
+
+  saveAssists(assist) {
+    return new Promise ((resolve, reject) => {
+      let headers = new Headers();
+      headers.append('Content-Type', 'application/x-www-form-urlencoded');
+      let options = new RequestOptions({
+        headers: headers
+      });
+      let myData = "id_user=" + assist.id_user  + "&customer_name=" + assist.company + "&customer_address=" + assist.city + "&qty=" + assist.qty;
+      this.http.post(this.global.endpoint+'Api_booking/request_assistant', myData, options)
+      .subscribe(res => {
+        resolve(res.json());
+      }, (err) => {
+        reject(err);
+      })
+    });
+  } 
+
+
+
+  cancelBooking(id_booking){
+    return new Promise ((resolve, reject) => {
+      let headers = new Headers();
+      headers.append('Content-Type', 'application/x-www-form-urlencoded');
+      let options = new RequestOptions({
+        headers: headers
+      });
+      let myData = "id_booking=" +id_booking
+      this.http.put(this.global.endpoint+'Api_booking/cancel_booking?'+myData, options)
+      .subscribe(res => {
+        resolve(res.json());
+      }, (err) => {
+        reject(err);
+      })
+    });
+  }
+
 }

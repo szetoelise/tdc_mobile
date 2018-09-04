@@ -27,21 +27,38 @@
             <ion-icon name="add"></ion-icon>
             Add
         </button>  
+
+
+
         <ion-card *ngFor="let data of bookingAll">
-            <ion-item>
-              <h2>{{data.dacen_name}}</h2>
-              <p>{{data.status_transaksi}}</p>
-            </ion-item>
-          
-          
-          
+            <ion-card-header>
+                <h2 style="float:left;">{{data.dacen_name}}</h2>
+                <div style="display:block;">{{data.status_transaksi}}</div>
+                <button (click)='presentActionSheet(data.id_booking,data.id_invoice,data.id_statustransaksi,data.status_visit)' item-end ion-button icon-only color="light" style="float: right;" round small outline>
+                    <ion-icon name="md-cog"></ion-icon>
+                    </button>
+                
+               
+              </ion-card-header>          
+              
             <ion-card-content>
               <table>
+                  <tr>
+                      <td>ID Booking</td>
+                      <td>:</td>
+                      <td>{{data.id_invoice}}</td>
+                    </tr>                
                 <tr>
-                  <td>Requester Name</td>
+                  <td>Client Name</td>
                   <td>:</td>
-                  <td>{{data.emp_name}}</td>
+                  <td>{{data.customer_name}}</td>
                 </tr>
+               
+                <tr>
+                  <td>Booking Status</td>
+                  <td>:</td>
+                  <td>{{data.status_transaksi}}</td>
+                </tr>                	
                 <tr>
                     <td>Days Commit</td>
                     <td>:</td>
@@ -51,11 +68,16 @@
                   <td>Qty</td>
                   <td>:</td>
                   <td>{{data.qty}}</td>
-              </tr>                
+              </tr>         
+              <tr>
+                  <td>Transaction Status</td>
+                  <td>:</td>
+                  <td>{{data.status_transaksi}}</td>
+              </tr>                     
                 <tr>
                     <td>Validator</td>
                     <td>:</td>
-                    <td>{{data.validator}}</td>
+                    <td>{{data.validator_name}}</td>
                 </tr>                  
                   
 

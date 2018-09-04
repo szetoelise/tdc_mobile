@@ -9,6 +9,8 @@ import {GlobalProvider} from '../../providers/global/global';
 import {DatacenterPage} from '../datacenter/datacenter';
 import {AvailabilityPage} from '../availability/availability';
 import {HistoryPage} from '../history/history';
+import {FormassistPage} from '../formassist/formassist';
+
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { Platform } from 'ionic-angular';
 import { LoginPage } from '../login/login';
@@ -85,5 +87,9 @@ export class HomePage {
   viewHistory(){
     this.navCtrl.push(HistoryPage);
   }
+
+ viewAssist(){
+   this.navCtrl.push(FormassistPage);
+ }
 
 }

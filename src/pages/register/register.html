@@ -17,32 +17,32 @@
              <ion-list>
                <ion-item> 
                 <ion-label color="dark"  stacked >Requester Type</ion-label>
-                <ion-select [(ngModel)]="loginData.id_requester_type" (ngModelChange)='rolesChange()' style="background-color: #ffffff !important; color: #000000; border-radius: 4px; max-width: 100% !important;">
+                <ion-select [(ngModel)]="Register.id_requester_type" (ngModelChange)='rolesChange()' style="background-color: #ffffff !important; color: #000000; border-radius: 4px; max-width: 100% !important;">
                     <ion-option  *ngFor="let req of rT" value="{{req.id_requester_type}}">{{req.requester_type}}</ion-option>                    
                 </ion-select>
               </ion-item>
               <ion-item>
                 <ion-label color="dark"  stacked>Name</ion-label>
-                <ion-input [disabled]="userexist" style="background-color: #ffffff !important; color: #000000; border-radius: 4px;" [(ngModel)]="loginData.name"  name="name" type="text" placeholder="Name" required></ion-input>
+                <ion-input [disabled]="userexist" style="background-color: #ffffff !important; color: #000000; border-radius: 4px;" [(ngModel)]="Register.emp_name"  name="emp_name" type="text" placeholder="Name" required></ion-input>
               </ion-item>
               <ion-item>     
                   <ion-label color="dark"  stacked >Choose Your Company</ion-label>
-                  <ion-select [(ngModel)]="loginData.id_whitelist" (ngModelChange)='rolesChange()' style="background-color: #ffffff !important; color: #000000; border-radius: 4px; max-width: 100% !important;">
+                  <ion-select [(ngModel)]="Register.id_whitelist" (ngModelChange)='rolesChange()' style="background-color: #ffffff !important; color: #000000; border-radius: 4px; max-width: 100% !important;">
                       <ion-option  *ngFor="let req of wL" value="{{req.id_whitelist}}"> {{req.company_name}}</ion-option>                    
                   </ion-select>
                 </ion-item>
                 <ion-item>
                     <ion-label color="dark"  stacked>NIK</ion-label>
-                    <ion-input [disabled]="userexist" style="background-color: #ffffff !important; color: #000000; border-radius: 4px;" [(ngModel)]="loginData.nik"  name="nik" type="text" placeholder="NIK" required></ion-input>
+                    <ion-input [disabled]="userexist" style="background-color: #ffffff !important; color: #000000; border-radius: 4px;" [(ngModel)]="Register.nik"  name="nik" type="text" placeholder="NIK" required></ion-input>
                   </ion-item>                              
               <ion-item>
                   <ion-label color="dark"  stacked>Email</ion-label>
-                  <ion-input [disabled]="userexist" style="background-color: #ffffff !important; color: #000000; border-radius: 4px;" [(ngModel)]="loginData.email"  name="email" type="email" placeholder="Email" required></ion-input>
-              </ion-item>
-    
+                  <ion-input [disabled]="userexist" style="background-color: #ffffff !important; color: #000000; border-radius: 4px;" [(ngModel)]="Register.email"  name="email" type="email" placeholder="Email" required></ion-input>
+                </ion-item>
+
               <ion-item>   
                   <ion-label color="dark"  stacked>No Telp</ion-label>
-                  <ion-input style="background-color: #ffffff !important; color: #000000; border-radius: 4px;" [(ngModel)]="loginData.telp"  name="telp" type="text" placeholder="Nomor Telepon" required></ion-input>
+                  <ion-input style="background-color: #ffffff !important; color: #000000; border-radius: 4px;" [(ngModel)]="Register.no_tlpn"  name="no_tlpn" type="text" placeholder="Nomor Telepon" required></ion-input>
                 </ion-item> 
                 </ion-list>    
             </ion-col>

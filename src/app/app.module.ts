@@ -27,6 +27,7 @@ import {FormcustomerPage} from '../pages/formcustomer/formcustomer';
 import {SummaryPage} from '../pages/summary/summary';
 import {ForgotpasswordPage} from '../pages/forgotpassword/forgotpassword';
 import {RegisterPage} from '../pages/register/register';
+import {FormassistPage} from '../pages/formassist/formassist';
 
 import { GlobalProvider } from '../providers/global/global';
 import { AuthServiceProvider } from '../providers/auth-service/auth-service';
@@ -66,7 +67,8 @@ import { BookingProvider } from '../providers/booking/booking';
     FormcustomerPage,
     SummaryPage,
     ForgotpasswordPage,
-    RegisterPage
+    RegisterPage,
+    FormassistPage
   ],
   imports: [
     BrowserModule,
@@ -101,7 +103,8 @@ import { BookingProvider } from '../providers/booking/booking';
     FormcustomerPage,
     SummaryPage,
     ForgotpasswordPage,
-    RegisterPage
+    RegisterPage,
+    FormassistPage
     
   ],
   providers: [

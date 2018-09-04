@@ -50,6 +50,8 @@ alertOK(title,subtitle){
   alert.present();
 }
 
+
+
 showLoader(msg){
   this.loading = this.loadingCtrl.create({
     content: msg

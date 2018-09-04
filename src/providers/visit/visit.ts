@@ -43,5 +43,18 @@ export class VisitProvider {
     });    
   }
 
+  listBookingRack(iduser,idrole){
+    return new Promise ((resolve, reject) => {
+      let headers = new Headers();   
+      headers.append('content-type', 'application/x-www-form-urlencoded');
+
+      this.http.get(this.global.endpoint+'Api_booking/historyrack?id_user=' + iduser + "&id_role=" + idrole, {headers: headers})
+      .subscribe(res => {
+        resolve(res.json());
+      }, (err) => {
+        reject(err);
+      })
+    });    
+  }
 
 }

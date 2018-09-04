@@ -104,4 +104,25 @@ list_whitelist(){
   });   
 }
 
+// email
+// nik
+// emp_name
+// id_title
+// id_whitelist
+// log_ip : SERVER['remote_addr']
+// no_tlpn
+register(register){
+  return new Promise ((resolve, reject) => {
+    let headers = new Headers();
+    let myData = "email="+ register.email + "&nik="+ register.nik + "&emp_name=" + register.emp_name + "&id_title=" + register.id_requester_type + "&id_whitelist=" + register.id_whitelist + "&no_tlpn=" + register.no_tlpn;
+    headers.append('content-type', 'application/x-www-form-urlencoded');
+    this.http.post(this.global.endpoint+'Api_users/register', myData, {headers: headers})
+    .subscribe(res => {
+      resolve(res.json());
+    }, (err) => {
+      reject(err);
+    })
+  });
+}
+
 }
