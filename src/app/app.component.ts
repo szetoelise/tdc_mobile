@@ -17,13 +17,14 @@ import {AlacartePage} from '../pages/alacarte/alacarte';
 import {PickbuildingPage} from '../pages/pickbuilding/pickbuilding';
 import {SummaryPage} from '../pages/summary/summary';
 import {PickrackPage} from '../pages/pickrack/pickrack';
-
+import {DetailbookingPage} from '../pages/detailbooking/detailbooking';
+import {RequestvisitPage} from '../pages/requestvisit/requestvisit';
 @Component({
   templateUrl: 'app.html'
 })
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
-  rootPage:any =HomePage ;
+  rootPage:any =RequestvisitPage ;
   //rootPage:any = AlacartePage;
   public x:Date;
  

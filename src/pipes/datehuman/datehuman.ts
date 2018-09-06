@@ -13,7 +13,8 @@ export class DatehumanPipe implements PipeTransform {
    * Takes a value and makes it lowercase.
    */
   transform(value: string, ...args) {
-        let newValue = new Date(value).toISOString();
+      
+        let newValue =new Date(value);
         return newValue;
   }
 }

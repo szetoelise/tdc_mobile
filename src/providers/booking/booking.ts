@@ -1,6 +1,7 @@
 import { Http, Headers,RequestOptions } from '@angular/http';
 import { Injectable } from '@angular/core';
 import {GlobalProvider} from '../global/global';
+import { HttpClient,HttpHeaders,HttpParams } from '@angular/common/http';
 //import {BaseRequestOptions, RequestOptions, RequestOptionsArgs} from "@angular/http";
 /*
   Generated class for the BookingProvider provider.
@@ -13,28 +14,15 @@ export class BookingProvider {
 
   constructor(
     public http: Http,
-    public global:GlobalProvider
+    public global:GlobalProvider,
+    public httpClient: HttpClient
     ) {
     console.log('Hello BookingProvider Provider');
   }
 
 
 
-  tesBooking(myData){
-    return new Promise ((resolve,reject)=>{
-      let headers = new Headers();
-      headers.append('Content-Type', 'application/x-www-form-urlencoded');
-      let options = new RequestOptions({
-        headers: headers
-      });
-      this.http.post('http://bukusaku.cloudsigma.id/webservices/wsdevices/test', myData, options)
-      .subscribe(res => {
-        resolve(res.json());
-      }, (err) => {
-        reject(err);
-      })     
-    });
-  }
+
 
   saveBooking(myData) {
     return new Promise ((resolve, reject) => {
@@ -53,14 +41,15 @@ export class BookingProvider {
     });
   } 
 
-  historyRack(idBooking) {
+  historyRack(idBooking,id_user,id_role) {
     return new Promise ((resolve, reject) => {
       let headers = new Headers();
       headers.append('Content-Type', 'application/x-www-form-urlencoded');
       let options = new RequestOptions({
         headers: headers
       });
-      this.http.get(this.global.endpoint+'Api_booking/historyrack?id_booking=' + idBooking,  options)
+      let myData = "?id_booking=" + idBooking +"&id_user=" + id_user + "&id_role=" + id_role;
+      this.http.get(this.global.endpoint+'Api_booking/historyrack'+myData,  options)
       .subscribe(res => {
         resolve(res.json());
       }, (err) => {
@@ -88,21 +77,77 @@ export class BookingProvider {
 
 
 
-  cancelBooking(id_booking){
+  cancelBooking(id_booking,id_user){
     return new Promise ((resolve, reject) => {
-      let headers = new Headers();
-      headers.append('Content-Type', 'application/x-www-form-urlencoded');
-      let options = new RequestOptions({
-        headers: headers
-      });
-      let myData = "id_booking=" +id_booking
-      this.http.put(this.global.endpoint+'Api_booking/cancel_booking?'+myData, options)
-      .subscribe(res => {
-        resolve(res.json());
+      let headers: HttpHeaders = new HttpHeaders();
+      let myData = {
+        id_booking:id_booking,
+        id_user:id_user
+      };
+
+      this.httpClient.put(this.global.endpoint+'Api_booking/cancel_booking',myData, 
+      {headers: new HttpHeaders().set('X-HTTP-Method-Override', 'PUT'),
+      params: new HttpParams().set('id_booking', id_booking).set('id_user', id_user),
+      })
+      .subscribe((res:any) => {
+        resolve(res);
       }, (err) => {
         reject(err);
       })
     });
   }
 
+
+  updateValidator(id_user,id_booking,id_validator){
+    return new Promise ((resolve, reject) => {
+      let headers: HttpHeaders = new HttpHeaders();
+      //headers.append('X-HTTP-Method-Override', 'PUT');
+      let myData = {
+        id_booking:id_booking,
+        id_validator:id_validator,
+        id_user:id_user
+      };
+
+      this.httpClient.put(this.global.endpoint+'Api_booking/updatevalidator',myData, 
+      {
+        headers: new HttpHeaders().set('X-HTTP-Method-Override', 'PUT'),
+        params: new HttpParams().set('id_booking', id_booking).set('id_validator', id_validator).set('id_user',id_user),
+      })
+      .subscribe((res:any) => {
+        resolve(res);
+      }, (err) => {
+        reject(err);
+      })
+    });
+  }
+
+  updateAssists(assistsData){
+    return new Promise ((resolve, reject) => {
+      let headers: HttpHeaders = new HttpHeaders();
+      //headers.append('X-HTTP-Method-Override', 'PUT');
+      let myData = {
+        id_booking:assistsData.id_booking,
+        id_user:assistsData.id_user,
+        customer_name:assistsData.customer_name,
+        customer_address:assistsData.customer_address,
+        qty:assistsData.qty
+      };
+
+      this.httpClient.put(this.global.endpoint+'Api_booking/update_request_assistant',myData, 
+      {
+        headers: new HttpHeaders().set('X-HTTP-Method-Override', 'PUT'),
+        params: new HttpParams()
+        .set('id_booking', assistsData.id_booking)
+        .set('id_user', assistsData.id_user)
+        .set('customer_name',assistsData.customer_name)
+        .set('customer_address',assistsData.customer_address)
+        .set('qty',assistsData.qty),
+      })
+      .subscribe((res:any) => {
+        resolve(res);
+      }, (err) => {
+        reject(err);
+      })
+    });
+  } 
 }

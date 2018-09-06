@@ -1,0 +1,62 @@
+<!--
+  Generated template for the FormassistPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+    <ion-navbar>
+      <ion-title>Request Assistant</ion-title>
+    </ion-navbar>
+  
+  </ion-header>
+  
+  
+  <ion-content>
+      <div>
+  
+        
+          <ion-item>
+              <ion-label color="primary" stacked>Data Center</ion-label>
+              <ion-input type="text" placeholder="Company Name / Client" [(ngModel)]="Visit.dacen" disabled></ion-input>
+          </ion-item>
+          
+          <ion-item>
+              <ion-label color="primary" stacked>Client Name*</ion-label>
+              <ion-input type="text" placeholder="City of Company" [(ngModel)]="Visit.customer_name" disabled></ion-input>
+            </ion-item>
+        
+          <ion-item>
+                <ion-label color="primary" stacked>Visitor List*</ion-label>
+                <!-- <ion-textarea  placeholder="Rack Qty" [(ngModel)]="Visit.visitor_list"></ion-textarea> -->
+                <ion-textarea #myInput id="myInput" rows="1" maxLength="500" (keyup)="resize()" [(ngModel)]="Visit.visitor_list"></ion-textarea>
+          </ion-item>
+          <ion-item>
+              <ion-label color="primary" stacked>Day of Visit</ion-label>
+              <ion-datetime displayFormat="YYYY-MM-DD"
+                pickerFormat="DDDD DD MMM YYYY"
+                (ionChange)="change_dateValue()" 
+                [(ngModel)]="myDate"></ion-datetime>
+          </ion-item>
+          
+          <ion-item>
+              <ion-label color="primary" stacked>Time of Visit</ion-label>
+              <ion-datetime displayFormat="H:m"
+                pickerFormat="HH:mm" 
+                hourValues="08,09,10,11,12,13,14,15,16,17"
+                [(ngModel)]="myTime"></ion-datetime>
+          </ion-item>
+
+          <ion-item>
+            <button ion-button item-start (click)="toBack()" >
+              <ion-icon name="md-close-circle"></ion-icon>&nbsp;Cancel</button>
+            <button ion-button item-end (click)="submitAssists()">
+                submit &nbsp;<ion-icon name="md-arrow-round-forward"></ion-icon>
+              </button>
+        </ion-item>
+          
+  
+        </div>
+  </ion-content>
+  

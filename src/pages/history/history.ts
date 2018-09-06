@@ -1,9 +1,16 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams,ActionSheetController   } from 'ionic-angular';
 import {AddbookingPage} from '../addbooking/addbooking';
+import {DetailbookingPage} from '../detailbooking/detailbooking';
+import {UpdatevalidatorPage} from '../updatevalidator/updatevalidator';
+import {EditformassistPage} from '../editformassist/editformassist';
+import {RequestvisitPage} from '../requestvisit/requestvisit';
+
 import {VisitProvider} from '../../providers/visit/visit';
 import {GlobalProvider} from '../../providers/global/global';
 import {BookingProvider} from '../../providers/booking/booking';
+import { interval } from 'rxjs/observable/interval';
+//import { RequestvisitPage } from '../requestvisit/requestvisit';
 
 
 /**
@@ -22,6 +29,10 @@ export class HistoryPage {
   topTab: any;
   visitAll:any;
   bookingAll:any;
+  id_role:string;
+  id_user:string;
+  public isrecommended;
+  public showValidator;
   constructor(public navCtrl: NavController, 
     public navParams: NavParams,
     public visit:VisitProvider,
@@ -31,86 +42,140 @@ export class HistoryPage {
     this.topTab = 'booking';
   }
 
+  clickEditBooking(id_booking){
+    this.navCtrl.push(EditformassistPage,{id_booking:id_booking});
+  }
+  clickDetail(id_booking){
+    this.navCtrl.push(DetailbookingPage,{id_booking:id_booking});
+  }
+
+  clickUpdateValidator(id_booking,id_invoice){
+    this.navCtrl.push(UpdatevalidatorPage,{id_booking:id_booking,invoice:id_invoice,id_user:this.id_user});
+  }
   clickCancel(id_booking){
-    this.booking.cancelBooking(id_booking).then(data=>{
-      console.log(data);
-    }).catch(err=>{
-      this.global.alertOK("Error",err);
+    this.global.showLoader("Please wait...");
+    this.global.storage.get("id_user").then(id_user=>{
+      this.booking.cancelBooking(id_booking,id_user).then(data=>{
+        
+        this.global.loading.dismiss();
+        if(data['code']=='501'){
+          this.global.alertOK("Error","Update failed");
+        }
+        this.ionViewDidEnter();
+      }).catch(err=>{
+        this.global.alertOK("Error",err.message);
+        this.global.loading.dismiss();
+      })
     })
   }
   
-  presentActionSheet(id_booking,id_invoice,statustransaksi,statusvisit) {
+  presentActionSheet(id_booking,id_invoice,id_role,statustransaksi,statusvisit,id_rackstatus) {
 
-    let finalval;
+   id_role = parseInt(id_role);
+   if(statustransaksi==null){
+    statustransaksi = '';
+   }
 
-   
-
-    let detailonly = [{
-      text: 'Detail',
-      handler: () => {
-        console.log('Destructive clicked');
-      }    
-    }];
-
-    let requester_detail_only = [
-      {
+   if(id_rackstatus==null){
+    id_rackstatus= '';
+   }
+   // console.log(statustransaksi + " " + id_rackstatus);
+   let finalval = [];
+   if(id_role==1){
+   // Role Dispatcher
+   finalval = [{
+    text: 'Detail',
+    handler: () => {
+      this.clickDetail(id_booking);
+    }    
+  }];
+   if(
+    statustransaksi == '' && id_rackstatus =='' || 
+    statustransaksi == '' && id_rackstatus =='3' || 
+    statustransaksi == '' && id_rackstatus =='4' || 
+    statustransaksi == '1' && id_rackstatus =='3' || 
+    statustransaksi == '1' && id_rackstatus =='4' || 
+    statustransaksi == '1' && id_rackstatus ==''  || 
+    statustransaksi == '2' && id_rackstatus =='3' || 
+    statustransaksi == '2' && id_rackstatus =='4' || 
+    statustransaksi == '2' && id_rackstatus ==''  || 
+    statustransaksi == '3' && id_rackstatus =='3' || 
+    statustransaksi == '3' && id_rackstatus =='4' ||
+    statustransaksi == '3' && id_rackstatus ==''){
+      finalval = [{
         text: 'Detail',
         handler: () => {
-          console.log('Destructive clicked');
-        }
-      },
-      {
-        text: 'Cancel',
+          this.clickDetail(id_booking);
+        }    
+      },{
+        text: 'Update Validator',
         handler: () => {
-          this.clickCancel(id_booking);
-        }
-      },
-      {
-        text: 'Request Visit',
-        handler: () => {
-          console.log('Cancel clicked');
-        }
+          this.clickUpdateValidator(id_booking,id_invoice);
+          
+        }    
+      }];
+    }
+
+   }else if(id_role==2){
+   // Role Requester
+   finalval.push({
+    text: 'Detail',
+    handler: () => {
+      this.clickDetail(id_booking);
+    }    
+  });
+
+  if(
+    statustransaksi == ''  && id_rackstatus ==''  || 
+    statustransaksi == ''  && id_rackstatus =='3' || 
+    statustransaksi == ''  && id_rackstatus =='4' || 
+    statustransaksi == '1' && id_rackstatus =='3' || 
+    statustransaksi == '1' && id_rackstatus =='4' || 
+    statustransaksi == '1' && id_rackstatus ==''  || 
+    statustransaksi == '2' && id_rackstatus =='3' || 
+    statustransaksi == '2' && id_rackstatus =='4' || 
+    statustransaksi == '2' && id_rackstatus == '' || 
+    statustransaksi == '3' && id_rackstatus =='3' || 
+    statustransaksi == '3' && id_rackstatus =='4' ||
+    statustransaksi == '3' && id_rackstatus == '' ){
+      
+      if(id_invoice=='' || id_invoice==null){
+          finalval.push(        {
+            text: 'Edit',
+            handler: () => {
+              this.clickEditBooking(id_booking);
+            }    
+          });
       }
-    ];
-
-
-    let request_from_assist = [
-      {
-        text: 'Detail',
-        handler: () => {
-          console.log('Destructive clicked');
-        }
-      },
-      {
-        text: 'Edit',
-        handler: () => {
-          console.log('Destructive clicked');
-        }
-      },
-      {
+      finalval.push(        {
         text: 'Cancel',
         handler: () => {
           this.clickCancel(id_booking);
-        }
-      },
-      {
-        text: 'Request Visit',
-        handler: () => {
-          console.log('Cancel clicked');
-        }
-      }     
-    ];
+        }    
+      });
 
+      if(statusvisit==0 || statusvisit=='0'){
+        finalval.push({
+          text: 'Request Visit',
+          handler: () => {
+          }    
+        });
+     
+      }    
 
-    if(id_invoice==null || id_invoice==''){
-      finalval = request_from_assist;
     }
 
-    if(parseInt(statustransaksi)==4 || parseInt(statustransaksi)==5){
-      finalval = detailonly;
-    }
 
-    
+   }else if(id_role==3){
+   // Role Validator
+
+   }else if(id_role==4){
+   // Role Admin
+
+   }
+
+ 
+   
 
     let actionSheet = this.actionSheetCtrl.create({
       title: "ID Invoice : " + id_invoice,
@@ -120,10 +185,19 @@ export class HistoryPage {
     actionSheet.present();
   }
 
-  ionViewDidLoad() {
+
+  //ionViewDidEnter(){
+    //alert("test");
+  //}
+
+  ionViewDidEnter() {
     console.log('ionViewDidLoad HistoryPage');
     this.visit.listAll().then(data=>{
+      if( data['data']=='kosong'){
+        this.visitAll = null;
+      }else{
       this.visitAll = data['data'];
+      }
       //console.log(data);
     }).catch(err=>{
       console.log(err);
@@ -132,6 +206,24 @@ export class HistoryPage {
     this.global.showLoader("Please Wait...");
     this.global.storage.get("id_user").then(id_user=>{
       this.global.storage.get("id_role").then(id_role=>{
+        
+        id_role = 2;
+        this.id_role = id_role;
+        this.id_user = id_user;
+        //if ($this->session->userdata('id_role')=='1' || $this->session->userdata('id_role')=='4')
+        if(parseInt(id_role)==1 || parseInt(id_role)==4 ){
+          this.isrecommended = true;
+        }else{
+          this.isrecommended = false;
+        }
+
+        //if ($this->session->userdata('id_role')!='3' )
+        if(parseInt(id_role)!=3){
+          this.showValidator = true;
+        }else{
+          this.showValidator = false;
+        }
+
         this.visit.listBookingRack(id_user,id_role).then(data=>{
           if(parseInt(data['total'])==0){
             this.bookingAll = null;

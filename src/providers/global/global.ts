@@ -10,7 +10,8 @@ import {LoadingController, AlertController, ToastController } from 'ionic-angula
 */
 @Injectable()
 export class GlobalProvider {
-  public endpoint = "http://43.229.207.253/TelkomDC/";
+  //public endpoint = "http://43.229.207.253/TelkomDC/";
+  public endpoint = 'http://localhost/telkomDC/index.php/';
   public loading;
   public Str:Storage;
 
@@ -80,6 +81,58 @@ checkEmail(email:string){
     return false;
   }else{
     return true;
+  }
+}
+
+
+rackStatus(id_rackstatus,id_role){
+  if(!id_rackstatus){
+    id_rackstatus = 0;
+  }
+  id_rackstatus = parseInt(id_rackstatus);
+  id_role = parseInt(id_role);
+  
+  if(id_rackstatus==3 && id_role==3){
+    return "<span class='font_blue'>Committed</span>";
+  }else if(id_rackstatus==3 && id_role==4){
+    return "<span class='font_blue'>Committed</span>";
+  }else if(id_rackstatus==3 && id_role!=3){
+    return "<span class='font_blue'>Committed</span>";
+  }else if(id_rackstatus==3 && id_role!=4){
+    return "<span class='font_blue'>Committed</span>";
+  }else if(id_rackstatus==4 && id_role==3){
+    return "<span class='font_orange'>Uncommitted</span>";
+  }else if(id_rackstatus==4 && id_role==4){
+    return "<span class='font_orange'>Uncommitted</span>";
+  }else if(id_rackstatus==4 && id_role!=3){
+    return "<span class='font_orange'>Uncommitted</span>";
+  }else if(id_rackstatus==4 && id_role!=4){
+    return "<span class='font_orange'>Uncommitted</span>";
+  }else if(id_rackstatus==2){
+    return "<span class='font_red'>Cancel</span>";
+  }else if(id_rackstatus==1){
+    return "<span class='font_green'>Occupied green</span>";
+  }else if(id_rackstatus==0){
+    return "-";
+  }else{
+    return "-";
+  }
+}
+
+statustransaksi(id_statustransaksi){
+  id_statustransaksi = parseInt(id_statustransaksi);
+  if(id_statustransaksi==1){
+    return "<span class='font_blue'>Initiate</span>";
+  }else if(id_statustransaksi==2){
+    return "<span class='font_green'>Proposal</span>";
+  }else if(id_statustransaksi==3){
+    return "<span class='font_purple'>Negotiation</span>";
+  }else if(id_statustransaksi==4){
+    return "<span class='font_orange'>Deal</span>";
+  }else if(id_statustransaksi==5){
+    return "<span class='font_red'>Drop</span>";
+  }else{
+    return "-";
   }
 }
 

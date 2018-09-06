@@ -28,6 +28,10 @@ import {SummaryPage} from '../pages/summary/summary';
 import {ForgotpasswordPage} from '../pages/forgotpassword/forgotpassword';
 import {RegisterPage} from '../pages/register/register';
 import {FormassistPage} from '../pages/formassist/formassist';
+import {DetailbookingPage} from '../pages/detailbooking/detailbooking';
+import {RequestvisitPage} from '../pages/requestvisit/requestvisit';
+import {UpdatevalidatorPage} from '../pages/updatevalidator/updatevalidator';
+import {EditformassistPage} from '../pages/editformassist/editformassist';
 
 import { GlobalProvider } from '../providers/global/global';
 import { AuthServiceProvider } from '../providers/auth-service/auth-service';
@@ -37,7 +41,10 @@ import { RestDacenProvider } from '../providers/rest-dacen/rest-dacen';
 import { IonicStorageModule } from '@ionic/storage';
 
 import {DatehumanPipe} from '../pipes/datehuman/datehuman';
-import {StringmanPipe} from '../pipes/stringman/stringman'; 
+import {StringmanPipe} from '../pipes/stringman/stringman';
+import {RackstatusPipe} from '../pipes/rackstatus/rackstatus'; 
+import {InvoicePipe} from '../pipes/invoice/invoice'; 
+import {StatustransaksiPipe} from '../pipes/statustransaksi/statustransaksi'; 
 //component
 import { PhotoViewer } from '@ionic-native/photo-viewer';
 import { LazyLoadImageModule } from 'ng-lazyload-image';
@@ -48,6 +55,11 @@ import { BookingProvider } from '../providers/booking/booking';
 @NgModule({
   declarations: [
     MyApp,
+    DatehumanPipe,
+    StringmanPipe,
+    RackstatusPipe,
+    InvoicePipe,
+    StatustransaksiPipe,
     HomePage,
     LoginPage,
     LogoutPage,
@@ -68,7 +80,11 @@ import { BookingProvider } from '../providers/booking/booking';
     SummaryPage,
     ForgotpasswordPage,
     RegisterPage,
-    FormassistPage
+    FormassistPage,
+    DetailbookingPage,
+    RequestvisitPage,
+    UpdatevalidatorPage,
+    EditformassistPage
   ],
   imports: [
     BrowserModule,
@@ -104,8 +120,11 @@ import { BookingProvider } from '../providers/booking/booking';
     SummaryPage,
     ForgotpasswordPage,
     RegisterPage,
-    FormassistPage
-    
+    FormassistPage,
+    DetailbookingPage,
+    RequestvisitPage,
+    UpdatevalidatorPage,
+    EditformassistPage
   ],
   providers: [
     StatusBar,
@@ -118,8 +137,6 @@ import { BookingProvider } from '../providers/booking/booking';
     PhotoViewer,
     VisitProvider,
     AlacarteProvider,
-    DatehumanPipe,
-    StringmanPipe,
     BookingProvider
   ]
 })

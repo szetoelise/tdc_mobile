@@ -23,31 +23,38 @@
   
   <div [ngSwitch]="topTab">
     <div *ngSwitchCase="'booking'">
-        <button ion-button icon-start (click)="showAdd()">
+        <!-- <button ion-button icon-start (click)="showAdd()">
             <ion-icon name="add"></ion-icon>
             Add
-        </button>  
+        </button>   -->
 
 
 
         <ion-card *ngFor="let data of bookingAll">
             <ion-card-header>
                 <h2 style="float:left;">{{data.dacen_name}}</h2>
-                <div style="display:block;">{{data.status_transaksi}}</div>
-                <button (click)='presentActionSheet(data.id_booking,data.id_invoice,data.id_statustransaksi,data.status_visit)' item-end ion-button icon-only color="light" style="float: right;" round small outline>
-                    <ion-icon name="md-cog"></ion-icon>
-                    </button>
+                <!-- <div style="display:block; float:left;">{{data.status_transaksi}}</div> -->
+                
+                <button (click)='presentActionSheet(data.id_booking,data.id_invoice,id_role,data.id_statustransaksi,data.status_visit,data.id_rackstatus)' item-end ion-button icon-only color="light" style="float: right;" round small outline>
+                  <ion-icon name="md-cog"></ion-icon>
+                </button>
                 
                
               </ion-card-header>          
               
             <ion-card-content>
-              <table>
-                  <tr>
-                      <td>ID Booking</td>
-                      <td>:</td>
-                      <td>{{data.id_invoice}}</td>
-                    </tr>                
+              <table class="table">
+                <tr>
+                  <td>ID Booking</td>
+                  <td>:</td>
+                  <td [innerHtml]="data.id_invoice | invoice"></td>
+                </tr>          
+                          
+                <tr>
+                  <td>Requester Name</td>
+                  <td>:</td>
+                  <td>{{data.emp_name}}</td>
+                </tr>                               
                 <tr>
                   <td>Client Name</td>
                   <td>:</td>
@@ -57,7 +64,7 @@
                 <tr>
                   <td>Booking Status</td>
                   <td>:</td>
-                  <td>{{data.status_transaksi}}</td>
+                  <td [innerHtml]="data.id_statustransaksi | rackstatus:id_role"></td>
                 </tr>                	
                 <tr>
                     <td>Days Commit</td>
@@ -72,14 +79,19 @@
               <tr>
                   <td>Transaction Status</td>
                   <td>:</td>
-                  <td>{{data.status_transaksi}}</td>
+                  <td [innerHtml]="data.id_statustransaksi | statustransaksi"></td>
               </tr>                     
-                <tr>
+   
+                <tr *ngIf="isrecommended">
+                    <td>Recomm* Validator</td>
+                    <td>:</td>
+                    <td>{{data.validator_name}}</td>
+                </tr>               
+                <tr *ngIf="showValidator">
                     <td>Validator</td>
                     <td>:</td>
                     <td>{{data.validator_name}}</td>
-                </tr>                  
-                  
+                </tr>                 
 
               </table>
             </ion-card-content>

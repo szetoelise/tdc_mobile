@@ -57,6 +57,18 @@ export class RestDacenProvider {
     });   
   }
 
+  listValidator(){
+    return new Promise ((resolve, reject) => {
+      let headers = new Headers();   
+      headers.append('content-type', 'application/x-www-form-urlencoded');
+      this.http.get(this.global.endpoint+'Api_dacen/validator', {headers: headers})
+      .subscribe(res => {
+        resolve(res.json());
+      }, (err) => {
+        reject(err);
+      })
+    });   
+  }
 
   listCertificateDacenById(id:string){
     return new Promise ((resolve, reject) => {

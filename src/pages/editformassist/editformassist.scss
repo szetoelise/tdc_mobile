@@ -1,4 +1,4 @@
-page-history {
+page-editformassist {
     ion-content {
         background-color:color($colors, gray) !important;
         background-image: url('../assets/imgs/background-footer.png');
@@ -34,13 +34,11 @@ page-history {
     }
 
     table tr{
-        border-bottom:#dddddd thin dashed;
+
     }
 
     table tr td{
         padding:2px;
-        vertical-align: top;
-        
     }
 
     ion-card-header {
@@ -57,5 +55,4 @@ page-history {
     .card{
         border-radius: 5px !important;
     }
-
 }

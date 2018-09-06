@@ -44,13 +44,15 @@ export class FormassistPage {
       this.global.alertOK("Error Input","Input rack qty cannot be empty.");
       return false;
     }
-
+    this.global.showLoader("Please wait..");
     this.global.storage.get("id_user").then(id_user=>{
       this.Assist.id_user = id_user;
       this.booking.saveAssists(this.Assist).then(data=>{
         this.global.alertOK("Success","Your request will be processed. Our team will be contact you soon");
+        this.global.loading.dismiss();
         this.navCtrl.pop();
       }).catch(err=>{
+        this.global.loading.dismiss();
         this.global.alertOK("Error",err);
       });
     });
