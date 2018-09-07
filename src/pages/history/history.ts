@@ -42,6 +42,10 @@ export class HistoryPage {
     this.topTab = 'booking';
   }
 
+  clickRequestVisit(id_booking){
+    this.navCtrl.push(RequestvisitPage,{id_booking:id_booking});
+  }
+  
   clickEditBooking(id_booking){
     this.navCtrl.push(EditformassistPage,{id_booking:id_booking});
   }
@@ -158,6 +162,7 @@ export class HistoryPage {
         finalval.push({
           text: 'Request Visit',
           handler: () => {
+            this.clickRequestVisit(id_booking);
           }    
         });
      

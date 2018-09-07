@@ -11,7 +11,7 @@ import {LoadingController, AlertController, ToastController } from 'ionic-angula
 @Injectable()
 export class GlobalProvider {
   //public endpoint = "http://43.229.207.253/TelkomDC/";
-  public endpoint = 'http://localhost/telkomDC/index.php/';
+  public endpoint = 'http://telkomsigmadatacenter.id/';
   public loading;
   public Str:Storage;
 
@@ -113,8 +113,6 @@ rackStatus(id_rackstatus,id_role){
   }else if(id_rackstatus==1){
     return "<span class='font_green'>Occupied green</span>";
   }else if(id_rackstatus==0){
-    return "-";
-  }else{
     return "-";
   }
 }

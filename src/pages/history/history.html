@@ -26,21 +26,14 @@
         <!-- <button ion-button icon-start (click)="showAdd()">
             <ion-icon name="add"></ion-icon>
             Add
-        </button>   -->
-
-
-
+            </button>   -->
         <ion-card *ngFor="let data of bookingAll">
             <ion-card-header>
                 <h2 style="float:left;">{{data.dacen_name}}</h2>
-                <!-- <div style="display:block; float:left;">{{data.status_transaksi}}</div> -->
-                
                 <button (click)='presentActionSheet(data.id_booking,data.id_invoice,id_role,data.id_statustransaksi,data.status_visit,data.id_rackstatus)' item-end ion-button icon-only color="light" style="float: right;" round small outline>
                   <ion-icon name="md-cog"></ion-icon>
                 </button>
-                
-               
-              </ion-card-header>          
+            </ion-card-header>          
               
             <ion-card-content>
               <table class="table">
@@ -64,7 +57,7 @@
                 <tr>
                   <td>Booking Status</td>
                   <td>:</td>
-                  <td [innerHtml]="data.id_statustransaksi | rackstatus:id_role"></td>
+                  <td [innerHtml]="data.id_rackstatus | rackstatus:id_role"></td>
                 </tr>                	
                 <tr>
                     <td>Days Commit</td>
@@ -95,34 +88,17 @@
 
               </table>
             </ion-card-content>
-          <!--
-            <ion-row>
-              <ion-col>
-                <button ion-button icon-start clear small>
-                  <ion-icon name="thumbs-up"></ion-icon>
-                  <div>12 Likes</div>
-                </button>
-              </ion-col>
-              <ion-col>
-                <button ion-button icon-start clear small>
-                  <ion-icon name="text"></ion-icon>
-                  <div>4 Comments</div>
-                </button>
-              </ion-col>
-              <ion-col center text-center>
-                <ion-note>
-                  11h ago
-                </ion-note>
-              </ion-col>
-            </ion-row>
-          -->
+
           </ion-card>
     </div>
     <div *ngSwitchCase="'visit'">
         <ion-card *ngFor="let data of visitAll">
-            <ion-item>              
-              <h2><strong>{{data.dacen_name}}</strong></h2>
-            </ion-item>
+            <ion-card-header>
+                <h2 style="float:left;">{{data.dacen_name}}</h2>
+                <button (click)='presentActionSheet(data.id_booking,data.id_invoice,id_role,data.id_statustransaksi,data.status_visit,data.id_rackstatus)' item-end ion-button icon-only color="light" style="float: right;" round small outline>
+                  <ion-icon name="md-cog"></ion-icon>
+                </button>
+            </ion-card-header>          
             <ion-card-content>
               <table class="table">
                 <tr>

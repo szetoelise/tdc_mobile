@@ -1,4 +1,4 @@
-import { Http, Headers } from '@angular/http';
+import { Http, Headers,RequestOptions } from '@angular/http';
 import { Injectable } from '@angular/core';
 import {GlobalProvider} from '../global/global';
 import 'rxjs/add/operator/map';
@@ -55,6 +55,23 @@ export class VisitProvider {
         reject(err);
       })
     });    
+  }
+
+  saveVisit(visit){
+    return new Promise ((resolve, reject) => {
+      let headers = new Headers();
+      headers.append('Content-Type', 'application/x-www-form-urlencoded');
+      let options = new RequestOptions({
+        headers: headers
+      });
+      let myData = "id_booking=" + visit.id_booking  + "&id_dacen=" + visit.id_dacen + "&client_name=" + visit.client_name + "&time_visit=" + visit.time_visit + "&visitor_list="+visit.visitor_list;
+      this.http.post(this.global.endpoint+'Api_visit/addvisit', myData, options)
+      .subscribe(res => {
+        resolve(res.json());
+      }, (err) => {
+        reject(err);
+      })
+    });
   }
 
 }

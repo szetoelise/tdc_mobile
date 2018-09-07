@@ -24,7 +24,7 @@ import {RequestvisitPage} from '../pages/requestvisit/requestvisit';
 })
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
-  rootPage:any =RequestvisitPage ;
+  rootPage:any =HomePage ;
   //rootPage:any = AlacartePage;
   public x:Date;
  
