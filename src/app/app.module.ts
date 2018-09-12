@@ -45,6 +45,8 @@ import {StringmanPipe} from '../pipes/stringman/stringman';
 import {RackstatusPipe} from '../pipes/rackstatus/rackstatus'; 
 import {InvoicePipe} from '../pipes/invoice/invoice'; 
 import {StatustransaksiPipe} from '../pipes/statustransaksi/statustransaksi'; 
+import {Nol3Pipe} from '../pipes/nol3/nol3'; 
+
 //component
 import { PhotoViewer } from '@ionic-native/photo-viewer';
 import { LazyLoadImageModule } from 'ng-lazyload-image';
@@ -60,6 +62,7 @@ import { BookingProvider } from '../providers/booking/booking';
     RackstatusPipe,
     InvoicePipe,
     StatustransaksiPipe,
+    Nol3Pipe,
     HomePage,
     LoginPage,
     LogoutPage,
