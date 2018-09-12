@@ -32,6 +32,8 @@ import {DetailbookingPage} from '../pages/detailbooking/detailbooking';
 import {RequestvisitPage} from '../pages/requestvisit/requestvisit';
 import {UpdatevalidatorPage} from '../pages/updatevalidator/updatevalidator';
 import {EditformassistPage} from '../pages/editformassist/editformassist';
+import {FloormapPage} from '../pages/floormap/floormap';
+import {LegendPage} from '../pages/legend/legend';
 
 import { GlobalProvider } from '../providers/global/global';
 import { AuthServiceProvider } from '../providers/auth-service/auth-service';
@@ -87,7 +89,9 @@ import { BookingProvider } from '../providers/booking/booking';
     DetailbookingPage,
     RequestvisitPage,
     UpdatevalidatorPage,
-    EditformassistPage
+    EditformassistPage,
+    FloormapPage,
+    LegendPage
   ],
   imports: [
     BrowserModule,
@@ -127,7 +131,9 @@ import { BookingProvider } from '../providers/booking/booking';
     DetailbookingPage,
     RequestvisitPage,
     UpdatevalidatorPage,
-    EditformassistPage
+    EditformassistPage,
+    FloormapPage,
+    LegendPage
   ],
   providers: [
     StatusBar,

@@ -19,6 +19,7 @@ import {SummaryPage} from '../pages/summary/summary';
 import {PickrackPage} from '../pages/pickrack/pickrack';
 import {DetailbookingPage} from '../pages/detailbooking/detailbooking';
 import {RequestvisitPage} from '../pages/requestvisit/requestvisit';
+import {LegendPage} from '../pages/legend/legend';
 @Component({
   templateUrl: 'app.html'
 })

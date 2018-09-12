@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-
+import {GlobalProvider} from '../../providers/global/global';
 /**
  * Generated class for the LegendPage page.
  *
@@ -14,8 +14,13 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   templateUrl: 'legend.html',
 })
 export class LegendPage {
-
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  public BaseURL:string;
+  constructor(
+    public navCtrl: NavController, 
+    public navParams: NavParams,
+    public global:GlobalProvider
+    ) {
+      this.BaseURL = this.global.endpoint + 'assets/images/';
   }
 
   ionViewDidLoad() {

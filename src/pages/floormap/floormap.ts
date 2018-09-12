@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-
+import { PhotoViewer } from '@ionic-native/photo-viewer';
 /**
  * Generated class for the FloormapPage page.
  *
@@ -14,12 +14,15 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   templateUrl: 'floormap.html',
 })
 export class FloormapPage {
-
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  public floorMap;
+  constructor(public navCtrl: NavController, public navParams: NavParams,private photoViewer: PhotoViewer) {
+    this.floorMap = this.navParams.get("file");
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad FloormapPage');
   }
-
+  showZoom(){
+    this.photoViewer.show(this.floorMap, "Floor Map");
+  }
 }

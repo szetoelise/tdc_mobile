@@ -4,6 +4,9 @@ import {RestDacenCategoryProvider} from '../../providers/rest-dacen-category/res
 import {RestDacenProvider} from '../../providers/rest-dacen/rest-dacen';
 import {GlobalProvider} from '../../providers/global/global';
 import {AlacartePage} from '../alacarte/alacarte';
+import {FloormapPage} from '../floormap/floormap';
+import {LegendPage} from '../legend/legend';
+
 //import {PickfloorPage} from '../../pages/pickfloor/pickfloor';
 /**
  * Generated class for the PickrackPage page.
@@ -29,6 +32,8 @@ export class PickrackPage {
   public pickedPrice=[];
   public invoice;
   public BaseURL:string;
+  public floorMap:string;
+
   constructor(
     public navCtrl: NavController, 
     public navParams: NavParams,
@@ -51,6 +56,7 @@ export class PickrackPage {
     this.global.showLoader("Please Wait..");
     this.restDacen.mappingRack(this.id_dacen,this.id_sector,this.id_floor).then(data=>{
       this.global.loading.dismiss();
+      this.floorMap = this.BaseURL + 'files/floor/' + data['floor_map'];
       this.rack = data['data'];
       let keyarr=[];
       let conditionarr=[];
@@ -123,5 +129,11 @@ export class PickrackPage {
     }
   }
 
+  showMap(img){
+    this.navCtrl.push(FloormapPage,{file:img});
+  }
 
+  showLegend(){
+    this.navCtrl.push(LegendPage);
+  }
 }
