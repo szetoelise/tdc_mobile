@@ -97,6 +97,26 @@ export class BookingProvider {
     });
   }
 
+    cancelAssists(id_booking,id_user,note){
+      return new Promise ((resolve, reject) => {
+        let headers: HttpHeaders = new HttpHeaders();
+        let myData = {
+          id_booking:id_booking,
+          id_user:id_user,
+          note:note
+        };
+
+        this.httpClient.put(this.global.endpoint+'Api_booking/cancel_transaction',myData, 
+        {headers: new HttpHeaders().set('X-HTTP-Method-Override', 'PUT'),
+        params: new HttpParams().set('id_booking', id_booking).set('id_user', id_user).set('note', note),
+        })
+        .subscribe((res:any) => {
+          resolve(res);
+        }, (err) => {
+          reject(err);
+        })
+      });
+    }
 
   updateValidator(id_user,id_booking,id_validator){
     return new Promise ((resolve, reject) => {
@@ -107,7 +127,6 @@ export class BookingProvider {
         id_validator:id_validator,
         id_user:id_user
       };
-
       this.httpClient.put(this.global.endpoint+'Api_booking/updatevalidator',myData, 
       {
         headers: new HttpHeaders().set('X-HTTP-Method-Override', 'PUT'),

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams,ActionSheetController   } from 'ionic-angular';
+import { IonicPage, NavController,AlertController, NavParams,ActionSheetController   } from 'ionic-angular';
 import {AddbookingPage} from '../addbooking/addbooking';
 import {DetailbookingPage} from '../detailbooking/detailbooking';
 import {UpdatevalidatorPage} from '../updatevalidator/updatevalidator';
@@ -38,7 +38,8 @@ export class HistoryPage {
     public visit:VisitProvider,
     public global:GlobalProvider,
     public booking:BookingProvider,
-    public actionSheetCtrl: ActionSheetController) {
+    public actionSheetCtrl: ActionSheetController,
+    public alertCtrl: AlertController) {
     this.topTab = 'booking';
   }
 
@@ -56,6 +57,47 @@ export class HistoryPage {
   clickUpdateValidator(id_booking,id_invoice){
     this.navCtrl.push(UpdatevalidatorPage,{id_booking:id_booking,invoice:id_invoice,id_user:this.id_user});
   }
+
+
+  clickCancel_assist(id_booking){
+    let alert = this.alertCtrl.create({
+      title: 'Cancel',
+      message: 'Do yo want to cancel this transaction?',
+      inputs: [
+        {
+          name: 'note'
+        }
+      ],
+      buttons: [
+        {
+          text: 'Yes',
+          handler: data => {
+            //this.global.alertOK("test",data.note);
+            this.global.showLoader("Please Wait...");
+            this.global.storage.get("id_user").then(id_user=>{
+              this.booking.cancelAssists(id_booking,id_user,data.note).then(data=>{
+                this.global.loading.dismiss();
+                if(data['code']=='501'){
+                  this.global.alertOK("Error","Update failed");
+                }
+                this.ionViewDidEnter();
+                this.global.alertOK("Success","Transaction successfully Canceled");
+              }).catch(err=>{
+
+              });
+            });
+          }
+        },
+        {
+          text: 'No',
+          role: 'cancel',
+
+        }
+      ]
+    });
+    alert.present();
+  }
+
   clickCancel(id_booking){
     this.global.showLoader("Please wait...");
     this.global.storage.get("id_user").then(id_user=>{
@@ -151,12 +193,23 @@ export class HistoryPage {
             }    
           });
       }
-      finalval.push(        {
-        text: 'Cancel',
-        handler: () => {
-          this.clickCancel(id_booking);
-        }    
-      });
+
+      if(id_invoice=='' || id_invoice==null){
+        finalval.push({
+          text: 'Cancel',
+          handler: () => {
+            this.clickCancel_assist(id_booking);
+          }    
+        });
+      }else{
+        finalval.push({
+          text: 'Cancel',
+          handler: () => {
+            this.clickCancel(id_booking);
+          }    
+        });
+      }      
+
 
       if(statusvisit==0 || statusvisit=='0'){
         finalval.push({

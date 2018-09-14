@@ -77,7 +77,7 @@ export class EditformassistPage {
         this.navCtrl.pop();
       }).catch(err=>{
         this.global.loading.dismiss();
-        this.global.alertOK("Error",err);
+        console.log(err);
       });
     });
 

@@ -34,12 +34,12 @@ import {UpdatevalidatorPage} from '../pages/updatevalidator/updatevalidator';
 import {EditformassistPage} from '../pages/editformassist/editformassist';
 import {FloormapPage} from '../pages/floormap/floormap';
 import {LegendPage} from '../pages/legend/legend';
+import {TestPage} from '../pages/test/test';
 
 import { GlobalProvider } from '../providers/global/global';
 import { AuthServiceProvider } from '../providers/auth-service/auth-service';
 import { RestDacenCategoryProvider } from '../providers/rest-dacen-category/rest-dacen-category';
 import { RestDacenProvider } from '../providers/rest-dacen/rest-dacen';
-
 import { IonicStorageModule } from '@ionic/storage';
 
 import {DatehumanPipe} from '../pipes/datehuman/datehuman';
@@ -91,7 +91,8 @@ import { BookingProvider } from '../providers/booking/booking';
     UpdatevalidatorPage,
     EditformassistPage,
     FloormapPage,
-    LegendPage
+    LegendPage,
+    TestPage
   ],
   imports: [
     BrowserModule,
@@ -133,7 +134,8 @@ import { BookingProvider } from '../providers/booking/booking';
     UpdatevalidatorPage,
     EditformassistPage,
     FloormapPage,
-    LegendPage
+    LegendPage,
+    TestPage
   ],
   providers: [
     StatusBar,

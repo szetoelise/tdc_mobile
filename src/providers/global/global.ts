@@ -11,7 +11,7 @@ import {LoadingController, AlertController, ToastController } from 'ionic-angula
 @Injectable()
 export class GlobalProvider {
   //public endpoint = "http://localhost/TelkomDC/";
-  public endpoint = 'http://telkomsigmadatacenter.id/';
+  public endpoint = 'https://telkomsigmadatacenter.id/';
   
   public loading;
   public Str:Storage;
