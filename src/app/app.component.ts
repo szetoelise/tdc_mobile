@@ -25,7 +25,7 @@ import {LegendPage} from '../pages/legend/legend';
 })
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
-  rootPage:any =HomePage ;
+  rootPage:any =HistoryPage ;
   //rootPage:any = AlacartePage;
   public x:Date;
  

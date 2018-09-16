@@ -50,6 +50,15 @@ export class HistoryPage {
   clickEditBooking(id_booking){
     this.navCtrl.push(EditformassistPage,{id_booking:id_booking});
   }
+
+  clickEditBookingWithInvoice(id_booking){
+    this.booking.editBooking(id_booking).then(data=>{
+      console.log(data);
+    }).catch(err=>{
+      console.log(err);
+    });
+  }
+
   clickDetail(id_booking){
     this.navCtrl.push(DetailbookingPage,{id_booking:id_booking});
   }
@@ -226,7 +235,44 @@ export class HistoryPage {
 
    }else if(id_role==3){
    // Role Validator
+   finalval.push({
+    text: 'Detail',
+    handler: () => {
+      this.clickDetail(id_booking);
+    }    
+  });
 
+   if(
+    statustransaksi == ''  && id_rackstatus ==''  || 
+    statustransaksi == ''  && id_rackstatus =='3' || 
+    statustransaksi == ''  && id_rackstatus =='4' || 
+    statustransaksi == '1' && id_rackstatus =='3' || 
+    statustransaksi == '1' && id_rackstatus =='4' || 
+    statustransaksi == '1' && id_rackstatus ==''  || 
+    statustransaksi == '2' && id_rackstatus =='3' || 
+    statustransaksi == '2' && id_rackstatus =='4' || 
+    statustransaksi == '2' && id_rackstatus == '' || 
+    statustransaksi == '3' && id_rackstatus =='3' || 
+    statustransaksi == '3' && id_rackstatus =='4' ||
+    statustransaksi == '3' && id_rackstatus == '' ){
+
+      if(id_invoice=='' || id_invoice==null){
+        finalval.push({
+          text: 'Edit Booking',
+          handler: () => {
+            this.clickEditBooking(id_booking);
+          }    
+        });
+    }else{
+      finalval.push({
+        text: 'Edit Booking',
+        handler: () => {
+          this.clickEditBookingWithInvoice(id_booking);
+        }    
+      });
+    }
+
+  }
    }else if(id_role==4){
    // Role Admin
 
@@ -265,7 +311,7 @@ export class HistoryPage {
     this.global.storage.get("id_user").then(id_user=>{
       this.global.storage.get("id_role").then(id_role=>{
         
-        id_role = 2;
+        id_role = 3;
         this.id_role = id_role;
         this.id_user = id_user;
         //if ($this->session->userdata('id_role')=='1' || $this->session->userdata('id_role')=='4')

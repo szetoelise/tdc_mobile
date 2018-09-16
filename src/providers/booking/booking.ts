@@ -58,6 +58,24 @@ export class BookingProvider {
     });
   }   
 
+
+  editBooking(idBooking){
+    return new Promise ((resolve, reject) => {
+      let headers = new Headers();
+      headers.append('Content-Type', 'application/x-www-form-urlencoded');
+      let options = new RequestOptions({
+        headers: headers
+      });
+      let myData = "?id_booking=" + idBooking;
+      this.http.get(this.global.endpoint+'Api_booking/edit_booking'+myData,  options)
+      .subscribe(res => {
+        resolve(res.json());
+      }, (err) => {
+        reject(err);
+      })
+    });    
+  }
+
   saveAssists(assist) {
     return new Promise ((resolve, reject) => {
       let headers = new Headers();

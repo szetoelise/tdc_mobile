@@ -53,6 +53,7 @@ export class PickrackPage {
     this.id_dacen = this.navParams.get("id_dacen");
     this.id_sector = this.navParams.get("id_sector");
     this.id_floor = this.navParams.get("id_floor");
+    
     this.global.showLoader("Please Wait..");
     this.restDacen.mappingRack(this.id_dacen,this.id_sector,this.id_floor).then(data=>{
       this.global.loading.dismiss();
