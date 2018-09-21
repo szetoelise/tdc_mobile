@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import {LoginPage} from '../login/login';
+//import {LoginPage} from '../login/login';
 import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
 import { GlobalProvider } from '../../providers/global/global';
 
@@ -46,6 +46,8 @@ export class ForgotpasswordPage {
         if(data['code']=='404'){
           this.global.alertOK("Error",data['message']);
           return false;
+        }else{
+          this.global.alertOK("Please check your email","We sent you email with instruction about how to reset your password.");
         }
 
       }).catch(err=>{

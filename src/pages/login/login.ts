@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage,  NavParams } from 'ionic-angular';
+import { IonicPage,  NavParams, Events } from 'ionic-angular';
 import { HomePage } from '../home/home';
 import { NavController} from 'ionic-angular';
 import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
@@ -28,7 +28,8 @@ export class LoginPage {
     private authService:AuthServiceProvider,
     public navCtrl: NavController, 
     public navParams: NavParams, 
-    private global:GlobalProvider
+    private global:GlobalProvider,
+    public events: Events
   ) {
   }
 
@@ -62,7 +63,7 @@ export class LoginPage {
       return false;
     }
 
-		this.global.showLoader("Authenticating....");
+		this.global.showLoader("Checking username....");
 		this.authService.getRoles(this.loginData.email).then((result) => {
  			this.global.loading.dismiss();
       this.dataRoles = result['data'];
@@ -101,10 +102,14 @@ export class LoginPage {
         this.global.saveStorage('is_active', this.data.data[0]['is_active']);
         this.global.saveStorage('emp_title', this.data.data[0]['emp_title']);
         this.global.saveStorage('id_role', this.data.data[0]['id_role']);
+        //this.global.saveStorage('role', this.data.data[0]['id_role']);
+        
         this.global.saveStorage('role', this.data.data[0]['role']);
         this.global.saveStorage('id_whitelist', this.data.data[0]['id_whitelist']);
         this.global.saveStorage('company_name', this.data.data[0]['company_name']);
         this.global.saveStorage('islogin', true);
+        this.global.saveStorage('token', this.data.token);
+        this.events.publish('user:info', this.data.data[0]['emp_name'], this.data.data[0]['role']);
         
         this.navCtrl.setRoot(HomePage);}
 				else{
@@ -112,7 +117,7 @@ export class LoginPage {
 				}
 			}, (err) => {
         this.global.loading.dismiss();
-        this.global.showToast(err);
+        this.global.alertOK("Error","No Internet Connection");
 			});
   }
 

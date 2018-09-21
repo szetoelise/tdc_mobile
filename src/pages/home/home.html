@@ -15,7 +15,7 @@
       <ion-slides class="to-top" pager>
  
           <ion-slide *ngFor="let data of dacen">
-              <img src="{{baseURL}}files/dc/{{data.dacen_img}}" alt="" >
+              <img src="{{baseURL}}files/dc/{{data.dacen_img}}" alt=""  tappable (click)="viewDataCenterDetail(data.id_dacen)">
           </ion-slide>
  
         </ion-slides>
@@ -36,16 +36,49 @@
         <div class="loading-div" *ngIf="isLoading">
                 <img src="../assets/imgs/loading.gif" />
         </div>
-      <ion-list *ngIf="!isLoading">
+      <!-- <ion-list *ngIf="!isLoading">
           <ion-list-header>
             Overview Data Center
           </ion-list-header>
-          <ion-item *ngFor="let data of dacenCat">
+          <ion-item *ngFor="let data of dacen">
               <ion-avatar item-start>
                   <img src="assets/imgs/server.png">
                 </ion-avatar>
-            Data Center {{data.dacencategory}}
+            {{data.dacen_name}}
           </ion-item>
-      </ion-list>    
+      </ion-list>   -->
+      <ion-list>
+        <ion-list-header>
+            Overview Data Center
+        </ion-list-header>
+      </ion-list>      
+      <ion-card *ngFor="let data of dacen; let i = index" [style.background-image]="'url(' + baseURL + 'files/dc/' + dacen[i].dacen_img + ')'" tappable (click)="viewDataCenterDetail(dacen[i].id_dacen)">
+        <ion-card-header>
+          {{dacen[i].dacen_name}}
+        </ion-card-header>
+        <table>
+            <tr>
+              <td>Space</td>
+              <td>:</td>
+              <td>{{dacen[i].dacen_space}}</td>
+            </tr>
+            <tr>
+                <td>Category</td>
+                <td>:</td>
+                <td>{{dacen[i].name}}</td>
+            </tr>
+            <tr>
+                <td>City</td>
+                <td>:</td>
+                <td>{{dacen[i].city_name}}</td>
+            <!-- </tr>                  
+            <tr>
+                <td>Available Rack</td>
+                <td>:</td>
+                <td>{{dacen[i].rack}}</td>
+            </tr>                   -->
+  
+          </table>
+    </ion-card>      
   </div>
 </ion-content>

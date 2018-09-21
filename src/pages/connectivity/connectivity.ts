@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController,IonicPage, LoadingController,NavParams,MenuController, AlertController, ToastController } from 'ionic-angular';
+import { NavController,IonicPage, LoadingController,NavParams } from 'ionic-angular';
 import {RestDacenCategoryProvider} from '../../providers/rest-dacen-category/rest-dacen-category';
 import {RestDacenProvider} from '../../providers/rest-dacen/rest-dacen';
 import {GlobalProvider} from '../../providers/global/global';

@@ -16,6 +16,25 @@
    
     <ion-card>
         <ion-card-header>
+          Total Pricing
+        </ion-card-header>
+        <ion-list>
+            <ion-item>
+              <p>Total Rack Price For <strong>{{totalRack}}</strong> Rack</p>
+              <h4 style="font-weight:bold;">{{totalPay | currency:"IDR":true:"1.0"}}</h4>
+            </ion-item>
+    
+            <ion-item>
+              <p>Setup Fee For <strong>{{totalRack}}</strong> Rack</p>
+              <h4 style="font-weight:bold;">{{totalSetup | currency:"IDR":true:"1.0"}}</h4>
+            </ion-item>
+          
+      
+        </ion-list>
+      </ion-card>
+
+    <ion-card>
+        <ion-card-header>
            Booking Commit Type
         </ion-card-header>
         <ion-list radio-group 
@@ -131,7 +150,7 @@
 </ion-content>
 <ion-footer>
     <ion-toolbar>
-        <button ion-button full outline>{{totalPay | currency:"IDR":true:"1.0"}}</button>
+      
     <ion-buttons left>
         <button ion-button icon-start (click)="toBack()">
             <ion-icon name="md-arrow-back"></ion-icon>

@@ -16,6 +16,7 @@ import {GlobalProvider} from '../../providers/global/global';
 })
 export class CertificatePage {
   public getCertificate:any;
+  public getCertified:any;
   public id:string;
   public startDate:any;
   public minDate:any;
@@ -26,7 +27,6 @@ export class CertificatePage {
     public navParams: NavParams,
     public dacen:RestDacenProvider,
     public global:GlobalProvider,
-    private atrCtrl:AlertController,
     private loadingCtrl:LoadingController,
     private toastCtrl:ToastController) {
       this.BaseURL = this.global.endpoint;
@@ -38,8 +38,9 @@ export class CertificatePage {
     //this.id = "1";
     this.showLoader();
     console.log('ionViewDidLoad CertificatePage');
-    this.dacen.listCertificateDacenById(this.id).then(data=>{
-      this.getCertificate = data['data'];
+    this.dacen.detailById(this.id).then(data=>{
+      this.getCertificate = data['certification'];
+      this.getCertified = data['certified'];
       this.loading.dismiss();
     }).catch(err=>{
       this.presentToast(err);

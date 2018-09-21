@@ -5,10 +5,15 @@ import {DetailbookingPage} from '../detailbooking/detailbooking';
 import {UpdatevalidatorPage} from '../updatevalidator/updatevalidator';
 import {EditformassistPage} from '../editformassist/editformassist';
 import {RequestvisitPage} from '../requestvisit/requestvisit';
+import {EdittransactionPage} from '../edittransaction/edittransaction';
+import {EditbookingstatusPage} from '../editbookingstatus/editbookingstatus';
+import {PickrackPage} from '../pickrack/pickrack';
+
 
 import {VisitProvider} from '../../providers/visit/visit';
 import {GlobalProvider} from '../../providers/global/global';
 import {BookingProvider} from '../../providers/booking/booking';
+
 import { interval } from 'rxjs/observable/interval';
 //import { RequestvisitPage } from '../requestvisit/requestvisit';
 
@@ -43,6 +48,14 @@ export class HistoryPage {
     this.topTab = 'booking';
   }
 
+  clickEditBookingStatus(id_booking,id_rackstatus,days_commit){
+    this.navCtrl.push(EditbookingstatusPage,{id_booking:id_booking,id_rackstatus:id_rackstatus,days_commit:days_commit});
+  }
+
+  clickEditTrasaction(id_booking,id_statustransaksi){
+    this.navCtrl.push(EdittransactionPage,{id_booking:id_booking,id_statustransaksi:id_statustransaksi});
+  }
+
   clickRequestVisit(id_booking){
     this.navCtrl.push(RequestvisitPage,{id_booking:id_booking});
   }
@@ -51,12 +64,26 @@ export class HistoryPage {
     this.navCtrl.push(EditformassistPage,{id_booking:id_booking});
   }
 
-  clickEditBookingWithInvoice(id_booking){
+  clickEditBookingWithInvoice(id_booking,id_rackstatus,days_commit){
+    //this.id_dacen = this.navParams.get("id_dacen");
+    //this.id_sector = this.navParams.get("id_sector");
+    //this.id_floor = this.navParams.get("id_floor");
+    
+    
+
     this.booking.editBooking(id_booking).then(data=>{
-      console.log(data);
-    }).catch(err=>{
-      console.log(err);
-    });
+       let dataJson = data['data'].dacen[0]; 
+        this.navCtrl.push(PickrackPage,{
+          id_booking:id_booking,
+          id_dacen:dataJson.id_dacen,
+          id_sector:dataJson.id_sector,
+          id_floor:dataJson.id_floor,
+          id_rackstatus:id_rackstatus,
+          days_commit:days_commit
+         });
+     }).catch(err=>{
+       console.log(err);
+     });
   }
 
   clickDetail(id_booking){
@@ -124,7 +151,7 @@ export class HistoryPage {
     })
   }
   
-  presentActionSheet(id_booking,id_invoice,id_role,statustransaksi,statusvisit,id_rackstatus) {
+  presentActionSheet(id_booking,id_invoice,id_role,statustransaksi,statusvisit,id_rackstatus,days_commit) {
 
    id_role = parseInt(id_role);
    if(statustransaksi==null){
@@ -267,14 +294,55 @@ export class HistoryPage {
       finalval.push({
         text: 'Edit Booking',
         handler: () => {
-          this.clickEditBookingWithInvoice(id_booking);
+          this.clickEditBookingWithInvoice(id_booking,id_rackstatus,days_commit);
         }    
       });
     }
+    finalval.push({
+      text: 'Update Transaction Status',
+      handler: () => {
+        this.clickEditTrasaction(id_booking,statustransaksi);
+      }    
+    });
+
+    finalval.push({
+      text: 'Update Booking Status',
+      handler: () => {
+        this.clickEditBookingStatus(id_booking,id_rackstatus,days_commit);
+      }    
+    });
+    finalval.push({
+      text: 'Cancel',
+      handler: () => {
+        this.clickCancel(id_booking);
+      }    
+    });
 
   }
    }else if(id_role==4){
    // Role Admin
+    finalval.push({
+      text: 'Detail',
+      handler: () => {
+        this.clickDetail(id_booking);
+      }    
+    });
+
+    if(
+      statustransaksi == '' && id_rackstatus =='' || 
+      statustransaksi == '' && id_rackstatus =='3' || 
+      statustransaksi == '' && id_rackstatus =='4' || 
+      statustransaksi == '1' && id_rackstatus =='3' || 
+      statustransaksi == '1' && id_rackstatus =='4' || 
+      statustransaksi == '1' && id_rackstatus ==''  || 
+      statustransaksi == '2' && id_rackstatus =='3' || 
+      statustransaksi == '2' && id_rackstatus =='4' ||
+      statustransaksi == '2' && id_rackstatus ==''  ||  
+      statustransaksi == '3' && id_rackstatus =='3' || 
+      statustransaksi == '3' && id_rackstatus =='4' ||
+      statustransaksi == '3' && id_rackstatus ==''){
+
+      }
 
    }
 
@@ -296,24 +364,29 @@ export class HistoryPage {
 
   ionViewDidEnter() {
     console.log('ionViewDidLoad HistoryPage');
-    this.visit.listAll().then(data=>{
-      if( data['data']=='kosong'){
-        this.visitAll = null;
-      }else{
-      this.visitAll = data['data'];
-      }
-      //console.log(data);
-    }).catch(err=>{
-      console.log(err);
-    });
+
+
 
     this.global.showLoader("Please Wait...");
     this.global.storage.get("id_user").then(id_user=>{
       this.global.storage.get("id_role").then(id_role=>{
         
-        id_role = 3;
+        //id_role = 3;
         this.id_role = id_role;
         this.id_user = id_user;
+
+        this.visit.visitList(id_user,id_role).then(data=>{
+          if( data['data']=='kosong'){
+            this.visitAll = null;
+          }else{
+          this.visitAll = data['data'];
+          }
+          //console.log(data);
+        }).catch(err=>{
+          console.log(err);
+        });
+
+
         //if ($this->session->userdata('id_role')=='1' || $this->session->userdata('id_role')=='4')
         if(parseInt(id_role)==1 || parseInt(id_role)==4 ){
           this.isrecommended = true;

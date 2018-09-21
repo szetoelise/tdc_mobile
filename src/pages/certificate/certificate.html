@@ -16,30 +16,24 @@
 <ion-content>
     <ion-card>
         <ion-card-header>
-          Data Center Certificates/Compliance
+            Certification
         </ion-card-header>
         <ion-card-content>
-            <ion-scroll scrollX="true">
+            <!-- <ion-scroll scrollX="true"> -->
                
-                  <img  *ngFor="let certificate of getCertificate" src="{{BaseURL}}files/certification/{{ certificate.certification_img }}" class="inline" style="max-width:10rem;max-height:5rem;">
+                  <img  *ngFor="let certificate of getCertificate" src="{{BaseURL}}files/certification/{{ certificate.certification_img }}" class="inline" >
        
                   
-              </ion-scroll>
+              <!-- </ion-scroll> -->
         </ion-card-content>
       </ion-card>
 
       <ion-card>
           <ion-card-header>
-           Expertise Certificates
+              Certified By
           </ion-card-header>
           <ion-card-content>
-              <ion-row>
-                  <ion-item>
-        
-                    </ion-item>
-                
-                 
-                </ion-row>
+              <img  *ngFor="let certificate of getCertified" src="{{BaseURL}}files/certified/{{ certificate.certified_img }}" class="inline" >
           </ion-card-content>
         </ion-card>      
 </ion-content>

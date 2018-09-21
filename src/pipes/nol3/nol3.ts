@@ -19,7 +19,7 @@ export class Nol3Pipe implements PipeTransform {
   }
 
   transform(value: string, ...args) {
-    var max = args[0];
-    return this.pad(value,max);
+    var max = value.substr(5,3);
+    return max;
   }
 }

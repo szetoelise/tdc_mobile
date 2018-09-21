@@ -34,19 +34,24 @@ export class AlacartePage {
   
   public post_id_alacarte=[];
   public length_id_alacarte=[];
+  public alacarteEdit=[];
 
   public priceType=[];
   public priceAl=[];
-
+  public id_booking;
+  public isedit:boolean=false;
   public checked=true;
   public isother=false;
   public id_dacen:string;
   public id_sector:string;
   public id_floor:string;
   public totalPay:number=0;
+  public totalSetup:number=0;
   public ids_rack;
+  public id_rackstatus_current_lawas;
   public invoice;
-  
+  public totalRack="0";
+
   constructor(public navCtrl: NavController, 
     public navParams: NavParams,
     private restAlacarte:AlacarteProvider,
@@ -55,22 +60,27 @@ export class AlacartePage {
       this.id_sector = this.navParams.get("id_sector");
       this.id_floor = this.navParams.get("id_floor");
       this.totalPay = parseFloat(this.navParams.get("totalPay"));
+      this.totalSetup = parseFloat(this.navParams.get("totalSetup"));
       this.ids_rack = this.navParams.get("ids_rack");
       this.invoice = this.navParams.get("invoice");
-
+      this.id_booking = this.navParams.get("id_booking");
+      this.alacarteEdit = this.navParams.get("alacarteEdit");
+      this.commitday = this.navParams.get("commitday");
+      this.id_rackstatus_current = this.navParams.get("id_rackstatus_current");
+      this.id_rackstatus_current_lawas = this.navParams.get("id_rackstatus_current_lawas");
+      if(this.id_booking==null || this.id_booking==""){
+        this.isedit = false;
+      }else{
+        this.isedit = true;
+      }
+      this.totalRack = this.ids_rack.length;
   }
 
   alacarteStatusChange(e,id){
-    //console.log(e);
-    //let id = '';
-    console.log(this.id_alacarte[id]);
     if(id=='24'){
-      console.log(e.checked);
       if(this.id_alacarte[id]){
-        console.log("Buka");
         this.isother = true;
       }else{
-        console.log("Tutup");
         this.isother =false;
       }
     }
@@ -79,7 +89,11 @@ export class AlacartePage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad AlacartePage');
     //this.listType();
-    this.id_rackstatus_current= 4;
+    if(this.isedit==false){
+      this.id_rackstatus_current= 4;
+    }else{
+      this.rackStatusChange();
+    }
     //this.alacarte()
       // var container = document.getElementsByClassName('detailbody');
       // for(var x = 0; x < container.length; x++) {
@@ -110,6 +124,13 @@ export class AlacartePage {
                //priceArr1[data1['data'][index].alacarte[index1].id_alacarte] =data1['data'][index].alacarte[index1].price;
             // });
         });
+
+        if(this.isedit){
+          this.alacarteEdit.forEach(function(key,data){
+            keyarr1[data] = data;
+          });
+        }
+        console.log(keyarr1);
 
         this.priceAl = priceArr1;
         this.id_alacarte=keyarr1;
@@ -284,21 +305,18 @@ export class AlacartePage {
   }
 
   doSubmit(){
-    //let l = this.length_id_alacarte;
-    //this.length_id_alacarte.forEach(function(key,index){
-        //console.log(index);
-    //});
 
+    
     if(!this.id_rackstatus_current){
       this.global.alertOK("Error Input","Select one of Booking Commit Type option.");
       return false;
     }
-    //console.log(this.id_alacartetype);
-    //console.log(this.id_alacarte);
+ 
     if(!this.commitday){
       this.commitday =0;       
     }
-   
+      //let t:number = parseFloat(this.totalPay.toString) + parseFloat(this.totalSetup);
+      this.totalPay += this.totalSetup;
       this.navCtrl.push(FormcustomerPage,{
         id_dacen:this.id_dacen,
         id_floor:this.id_floor,
@@ -310,7 +328,9 @@ export class AlacartePage {
         id_rackstatus_current:this.id_rackstatus_current,
         note_additional:this.note_additional,
         commitdays:this.commitday,
-        invoice:this.invoice
+        invoice:this.invoice,
+        id_rackstatus_current_lawas:this.id_rackstatus_current_lawas,
+        id_booking:this.id_booking
       });
 
   }

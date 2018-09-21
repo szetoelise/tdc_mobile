@@ -136,5 +136,17 @@ export class RestDacenProvider {
     });
   }
 
+  listAllDacen(){
+    return new Promise ((resolve, reject) => {
+      let headers = new Headers();   
+      headers.append('content-type', 'application/x-www-form-urlencoded');
+      this.http.get(this.global.endpoint+'Api_dacen/datacenter_list', {headers: headers})
+      .subscribe(res => {
+        resolve(res.json());
+      }, (err) => {
+        reject(err);
+      })
+    });   
+  }
 
 }

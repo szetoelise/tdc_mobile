@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Storage } from '@ionic/storage';
-import {LoadingController, AlertController, ToastController } from 'ionic-angular';
+import { LoadingController, AlertController, ToastController } from 'ionic-angular';
+import { Http, Headers,RequestOptions } from '@angular/http';
 
 /*
   Generated class for the GlobalProvider provider.
@@ -12,7 +13,7 @@ import {LoadingController, AlertController, ToastController } from 'ionic-angula
 export class GlobalProvider {
   //public endpoint = "http://localhost/TelkomDC/";
   public endpoint = 'https://telkomsigmadatacenter.id/';
-  
+  public apiKey = "AIzaSyBBpAUZbiKUrXDN--aCVd6mq6iDVvA0GA0";
   public loading;
   public Str:Storage;
 
@@ -20,7 +21,8 @@ export class GlobalProvider {
     public storage:Storage,
     private atrCtrl:AlertController,
     private loadingCtrl:LoadingController,
-    private toastCtrl:ToastController) {
+    private toastCtrl:ToastController,
+    public http: Http) {
     console.log('Global Provider here...');
   }
 
@@ -133,6 +135,47 @@ statustransaksi(id_statustransaksi){
   }else{
     return "-";
   }
+}
+
+
+
+
+checkTokenApi(email,token) {
+  return new Promise ((resolve, reject) => {
+    let headers = new Headers();
+    headers.set('Content-Type', 'application/x-www-form-urlencoded');
+    headers.set('Authorization', token);  
+    let options = new RequestOptions({
+      headers: headers
+    });
+    let myData = "email=" + email;
+    this.http.post(this.endpoint+'Api_users/cek_token', myData, options)
+    .subscribe(res => {
+      resolve(res.json());
+    }, (err) => {
+      reject(err);
+    })
+  });
+} 
+
+checkToken(){
+  this.storage.ready().then(() => {
+    this.storage.get("token").then(token=>{
+      this.storage.get("email").then(email=>{
+        this.checkTokenApi(email,token).then(data=>{
+          if(data['code']=='200'){
+            return true;           
+          }else{
+            this.alertOK("Session Expired","Please re-login using your valid access credential.");
+            this.storage.clear();
+            return false;
+          }
+        }).catch(err=>{
+          this.alertOK("Error","Connection lost, resetting session");
+        });
+      })
+    })
+  });
 }
 
 }

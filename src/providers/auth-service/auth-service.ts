@@ -14,8 +14,7 @@ export class AuthServiceProvider {
 
   constructor(
     public http: Http,
-    private global:GlobalProvider,
-    private storage:Storage) {
+    public global:GlobalProvider) {
     
     //console.log('Hello AuthServiceProvider Provider');
   }

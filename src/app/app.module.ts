@@ -3,7 +3,7 @@ import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
-import { Http, Headers } from '@angular/http';
+//import { Http, Headers } from '@angular/http';
 import { HttpModule } from '@angular/http';
 import { HttpClientModule } from '@angular/common/http'; 
 import { MyApp } from './app.component';
@@ -35,6 +35,8 @@ import {EditformassistPage} from '../pages/editformassist/editformassist';
 import {FloormapPage} from '../pages/floormap/floormap';
 import {LegendPage} from '../pages/legend/legend';
 import {TestPage} from '../pages/test/test';
+import {EdittransactionPage} from '../pages/edittransaction/edittransaction';
+import {EditbookingstatusPage} from '../pages/editbookingstatus/editbookingstatus';
 
 import { GlobalProvider } from '../providers/global/global';
 import { AuthServiceProvider } from '../providers/auth-service/auth-service';
@@ -92,7 +94,9 @@ import { BookingProvider } from '../providers/booking/booking';
     EditformassistPage,
     FloormapPage,
     LegendPage,
-    TestPage
+    TestPage,
+    EdittransactionPage,
+    EditbookingstatusPage
   ],
   imports: [
     BrowserModule,
@@ -135,7 +139,9 @@ import { BookingProvider } from '../providers/booking/booking';
     EditformassistPage,
     FloormapPage,
     LegendPage,
-    TestPage
+    TestPage,
+    EdittransactionPage,
+    EditbookingstatusPage
   ],
   providers: [
     StatusBar,

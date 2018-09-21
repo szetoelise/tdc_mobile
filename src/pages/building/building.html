@@ -13,15 +13,27 @@
   </ion-header>
   
   <ion-content>
+
+
       <ion-card>
           <ion-card-header>
-              <img  src="{{diagram_power}}"  >
-              <small>Tap to zoom</small>
+              <img  src="{{building_img}}"  >
+             
           </ion-card-header>
           <ion-card-content>
               
           </ion-card-content>
         </ion-card>  
-       
+ 
+        <ion-card>
+            <ion-card-header>
+              <h2><strong>{{building_name}}</strong></h2>
+            </ion-card-header>
+            <ion-card-content style="text-align:justify;">
+                <img  src="{{building_maps}}"  >
+                <div [innerHtml]="building_detail" style="text-align:justify;"></div>
+            </ion-card-content>
+          </ion-card>
+
   </ion-content>
   

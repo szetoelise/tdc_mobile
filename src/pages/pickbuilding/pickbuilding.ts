@@ -37,17 +37,33 @@ export class PickbuildingPage {
   }
 
   ionViewDidLoad() {
-    this.BaseURL = this.global.endpoint;
-    this.id_dacen = this.navParams.get("id_dacen");
-    console.log('ionViewDidLoad PickbuildingPage');
-    this.showLoader();
-    this.restDacen.detailById(this.id_dacen).then(data=>{
-      this.dacen = data['data'];
-      this.getBuilding(this.id_dacen);
-    }).catch(err=>{
-      this.loading.dismiss();
-      console.log(err);
-    });
+
+    this.global.storage.ready().then(()=>{
+      this.global.storage.get("id_role").then(id_role=>{
+        console.log(id_role + "test");
+        if(id_role=="2"){
+          this.BaseURL = this.global.endpoint;
+          this.id_dacen = this.navParams.get("id_dacen");
+          console.log('ionViewDidLoad PickbuildingPage');
+          this.showLoader();
+          this.restDacen.detailById(this.id_dacen).then(data=>{
+            this.dacen = data['data'];
+            this.getBuilding(this.id_dacen);
+          }).catch(err=>{
+            this.loading.dismiss();
+            console.log(err);
+          });  
+        }else{
+          this.global.alertOK("Invalid Role","Please Login as Requester");
+          this.navCtrl.pop();
+        }
+  
+  
+  
+      })
+    })
+
+
   }
 
 

@@ -30,7 +30,7 @@
         <ion-card *ngFor="let data of bookingAll">
             <ion-card-header>
                 <h2 style="float:left;">{{data.dacen_name}}</h2>
-                <button (click)='presentActionSheet(data.id_booking,data.id_invoice,id_role,data.id_statustransaksi,data.status_visit,data.id_rackstatus)' item-end ion-button icon-only color="light" style="float: right;" round small outline>
+                <button (click)='presentActionSheet(data.id_booking,data.id_invoice,id_role,data.id_statustransaksi,data.status_visit,data.id_rackstatus,data.days_commit)' item-end ion-button icon-only color="light" style="float: right;" round small outline>
                   <ion-icon name="md-cog"></ion-icon>
                 </button>
             </ion-card-header>          
@@ -95,9 +95,9 @@
         <ion-card *ngFor="let data of visitAll">
             <ion-card-header>
                 <h2 style="float:left;">{{data.dacen_name}}</h2>
-                <button (click)='presentActionSheet(data.id_booking,data.id_invoice,id_role,data.id_statustransaksi,data.status_visit,data.id_rackstatus)' item-end ion-button icon-only color="light" style="float: right;" round small outline>
+                <!-- <button (click)='presentActionSheet(data.id_booking,data.id_invoice,id_role,data.id_statustransaksi,data.status_visit,data.id_rackstatus,data.days_commit)' item-end ion-button icon-only color="light" style="float: right;" round small outline>
                   <ion-icon name="md-cog"></ion-icon>
-                </button>
+                </button> -->
             </ion-card-header>          
             <ion-card-content>
               <table class="table">

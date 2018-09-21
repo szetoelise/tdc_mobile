@@ -16,18 +16,29 @@
   <div>
 
   </div>
+  <ion-card>
+    <img src="{{dacenimg}}">
+  </ion-card>
+  
+  <ion-card>
+    <ion-card-header>
+      <h2>{{dacenname}}</h2>
+    </ion-card-header>
+    <ion-card-content style="text-align:justify;">
+      {{dacendesc}}
+    </ion-card-content>
+  </ion-card>
+
+
+
     <ion-card>
       
         <ion-card-header>
-            <button color="danger" ion-button icon-start >
+            <button color="danger" ion-button full>
                 <ion-icon name="download"></ion-icon>
                 Download File
               </button>
-              
-              <button color="secondary" ion-button icon-end >
-               Maps&nbsp;
-               <ion-icon name="pin"></ion-icon> 
-              </button>
+
         </ion-card-header>
             <ion-list>
                 <ion-item tappable (click)="viewCertificate()">
@@ -44,7 +55,7 @@
             <ion-list>
                 <ion-item tappable (click)="viewBuilding()">
                   <ion-avatar item-start>
-                    <img src="../assets/imgs/building.png">
+                    <img src="assets/imgs/building.png">
                   </ion-avatar>
                   <h2>Buildings</h2>
                   <small>See buildings details</small>
@@ -55,7 +66,7 @@
             <ion-list>
                 <ion-item tappable (click)="viewDiagramPower()">
                   <ion-avatar item-start>
-                    <img src="../assets/imgs/chart.png">
+                    <img src="assets/imgs/chart.png">
                   </ion-avatar>
                   <h2>Diagram Power</h2>
                   <small>See diagram power</small>
@@ -66,7 +77,7 @@
             <ion-list>
                 <ion-item tappable (click)="viewConnectivity()">
                   <ion-avatar item-start>
-                    <img src="../assets/imgs/wifi.png">
+                    <img src="assets/imgs/wifi.png">
                   </ion-avatar>
                   <h2>Connectivity</h2>
                   <small>See data center connectivity</small>
@@ -76,6 +87,19 @@
        
     </ion-card>
 
-   
+    <ion-card>
+        <ion-card-header>
+          <h2>Location detail</h2>
+        </ion-card-header>
+        <ion-card-content>
+          <!-- <img src="https://maps.googleapis.com/maps/api/staticmap?center={{lat}},{{lng}}&maptype=roadmap
+          &markers=color:blue%7Clabel:S%7C{{lat}},{{lng}}&zoom=18&size=1200x1200&key={{apiKey}}"/> -->
+          <div id="map_canvas" style="width:100%; height: 300px;"></div>
+          <div [innerHtml]="dacenlocdetail" style="text-align:justify;">
+
+          </div>
+
+        </ion-card-content>
+      </ion-card>   
 
 </ion-content>

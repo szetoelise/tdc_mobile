@@ -3,7 +3,7 @@ import { IonicPage, NavController,LoadingController, NavParams,AlertController,T
 import {RestDacenCategoryProvider} from '../../providers/rest-dacen-category/rest-dacen-category';
 import {RestDacenProvider} from '../../providers/rest-dacen/rest-dacen';
 import {PickfloorPage} from '../../pages/pickfloor/pickfloor';
-
+import {GlobalProvider} from '../../providers/global/global';
 /**
  * Generated class for the AddbookingPage page.
  *
@@ -32,11 +32,11 @@ export class AddbookingPage {
     private restDacen:RestDacenProvider,
     private atrCtrl:AlertController,
     private loadingCtrl:LoadingController,
-    private toastCtrl:ToastController) {
+    private toastCtrl:ToastController,
+    private global:GlobalProvider) {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad AddbookingPage');
     this.showLoader();
     this.restDacenCat.listCategory().then(data=>{
         this.dacenCat = data['data'];
@@ -45,6 +45,10 @@ export class AddbookingPage {
     }).catch(data=>{
       this.presentToast("Koneksi anda terputus.");
     });
+
+
+    
+
   }
 
 //begin CBO changes

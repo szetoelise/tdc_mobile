@@ -14,6 +14,8 @@ import {FormassistPage} from '../formassist/formassist';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { Platform } from 'ionic-angular';
 import { LoginPage } from '../login/login';
+import {DatacenterdetailPage} from '../datacenterdetail/datacenterdetail';
+
 
 @Component({
   selector: 'page-home',
@@ -22,23 +24,27 @@ import { LoginPage } from '../login/login';
 
 
 export class HomePage {
-  private dacenCat:any= {};
-  private dacen:any;
-  private tempDacenCat:any={};
-  private isLoading:boolean=false;
-  private baseURL:string;
+  public dacenCat:any= {};
+  public dacen:any;
+  public tempDacenCat:any={};
+  public isLoading:boolean=false;
+  public baseURL:string;
   constructor(
     platform: Platform,
     public navCtrl: NavController,
-    private restDacenCat:RestDacenCategoryProvider,
-    private restDacen:RestDacenProvider,
-    private global:GlobalProvider,
-    private sp:SplashScreen,
-    private book:BookingProvider) {
+    public restDacenCat:RestDacenCategoryProvider,
+    public restDacen:RestDacenProvider,
+    public global:GlobalProvider,
+    public sp:SplashScreen,
+    public book:BookingProvider) {
     this.baseURL = this.global.endpoint;
-   
-
-      sp.hide();  
+      
+      //console.log("Token : " + this.global.checkToken());
+      //if(!this.global.checkToken()){
+        //this.navCtrl.setRoot(LoginPage);
+      //}
+      this.sp.hide();
+      
       this.global.storage.ready().then(()=>{
         this.global.storage.get("islogin").then(data=>{          
           if(!data){
@@ -55,19 +61,15 @@ export class HomePage {
 
   getDacenCat(){
     this.isLoading=true;
-    this.restDacenCat.listCategory()
-    .then(data => {
-     
       this.restDacen.listAll().then(data1=>{
         this.isLoading=false;
         this.dacen = data1['data'];
       }).catch(err=>{
+        this.isLoading=false;
       });
-      this.dacenCat = data['data'];
+      //this.dacenCat = data['data'];
 
-    }).catch(err=>{
-      console.log(err);
-    });
+   
   }
 
   generateTree(item){
@@ -89,7 +91,28 @@ export class HomePage {
   }
 
  viewAssist(){
-   this.navCtrl.push(FormassistPage);
+
+  
+  this.global.storage.ready().then(()=>{
+    this.global.storage.get("id_role").then(id_role=>{
+      console.log(id_role + "test");
+      if(id_role=="2"){
+        this.navCtrl.push(FormassistPage);
+      }else{
+        this.global.alertOK("Invalid Role","Please Login as Requester");
+      }
+
+
+
+    })
+  })
+
+   
  }
+
+ viewDataCenterDetail(id:string){
+  console.log(id);
+  this.navCtrl.push(DatacenterdetailPage,{id:id});
+}
 
 }

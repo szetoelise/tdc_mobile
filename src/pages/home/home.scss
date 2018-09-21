@@ -59,4 +59,34 @@ page-home {
        
         
     }
+
+
+    ion-card-header {
+        background-color:#b7313a;
+        color:white !important;
+        font-size: 1.2em !important; 
+        white-space: wrap;
+    }
+
+    table{
+        width:100%;
+        background: linear-gradient(to right,color($colors, bground), transparent) !important;
+        color:white !important;
+        
+    }
+
+    table tr{
+
+    }
+
+    table tr td{
+        padding:2px;
+    }
+
+    ion-card {
+        background-size: cover !important;
+        background-repeat: no-repeat !important;
+        //background-color: transparent !important;
+       
+    }   
 }
